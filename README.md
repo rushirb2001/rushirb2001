@@ -3,9 +3,9 @@
 I'm Rushir Bhavsar, a Computer Science student at Nirma University.
 
 ## About Me
-- 🎓 Pursuing B.Tech in Computer Science (2019-2023)
-- 💻 Passionate about Computer Vision and Machine Learning
-- 🌱 Working on Image Segmentation and Deep Learning projects
+- 🎓 B.Tech in Computer Science (2019-2023) | Final Year
+- 💻 Passionate about Computer Vision, Deep Learning, and Medical AI
+- 🌱 Working on Deep Learning Research and Image Segmentation
 - 📍 Based in Ahmedabad, India
 
 ## Tech Stack
@@ -15,14 +15,35 @@ I'm Rushir Bhavsar, a Computer Science student at Nirma University.
 [![C++ Badge](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
 [![TensorFlow Badge](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/)
 [![Keras Badge](https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white)](https://keras.io/)
+[![PyTorch Badge](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![OpenCV Badge](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)](https://opencv.org/)
+[![Scikit-Learn Badge](https://img.shields.io/badge/Scikit%20Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![NumPy Badge](https://img.shields.io/badge/Numpy-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
 [![Pandas Badge](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
 [![Jupyter Notebook Badge](https://img.shields.io/badge/Jupyter%20Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
 [![SQL Badge](https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Git Badge](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
 
-## Featured Projects
+## Research & Projects
+
+### 🔬 Deep Ensemble Mammogram Classification Using One-Shot Segmentation
+**Nirma University | July - December 2022**
+
+Advanced deep learning research project for automated breast cancer detection using ensemble methods and transfer learning.
+
+**Key Achievements:**
+- Aggregated and preprocessed 7,000+ mammogram images from 7 diverse medical imaging sources
+- Applied panoptic annotation and semantic segmentation with convolutional autoencoders
+- Improved data processing efficiency by 27% through advanced normalization techniques
+- Enhanced cancerous mammogram classification accuracy by 23% over baseline, achieving 81% accuracy
+- Implemented ensemble of ResNet, U-Net, EfficientNet, and MobileNet with one-shot transfer learning
+- Used Tree-based Boosting Ensembling for final predictions
+
+**Tech Stack:** PyTorch, TensorFlow, OpenCV, NumPy, Pandas, Scikit-Learn
+
+**Impact:** Research contributed to academic dissemination in medical AI domain
+
+---
 
 ### 🔹 Diamond Shape Segmentation | MiNeD Hackathon 2022
 **Nirma University | August 2022**
@@ -37,21 +58,14 @@ Advanced computer vision pipeline for automated diamond shape classification and
 
 **Tech Stack:** Python, OpenCV, NumPy, Pandas, Matplotlib
 
-**Shapes Supported:** AS (Asscher), BR (Brilliant), CMB (Combination), EM (Emerald), HS (Heart), MQ (Marquise), OV (Oval), PE (Pear), PR (Princess), PS (Pearshape), RA (Radiant), RD (Round), SEM (Semi), TRI (Triangle)
-
 **GitHub:** [diamond-shape-segmentation](https://github.com/rushirb2001/diamond-shape-segmentation)
 
 ---
 
-### Data Structures & Algorithms
-- Implemented advanced data structures (BST, AVL Trees, Graphs) in C++
-- Created algorithm visualization tools
-- Practice problems on competitive programming platforms
-
-### Python Projects
-- Web scraping tools using BeautifulSoup
-- Data analysis scripts with Pandas
-- Simple ML models for classification tasks
+### Additional Projects
+- Advanced Data Structures & Algorithms implementations in C++
+- Web scraping and data analysis tools in Python
+- Machine Learning classification models with Scikit-Learn
 
 ## Connect With Me
 - 📧 Email: bhavsarrushir@gmail.com
@@ -59,4 +73,4 @@ Advanced computer vision pipeline for automated diamond shape classification and
 - 🐙 [GitHub](https://github.com/rushirb2001)
 
 ---
-*Passionate about Computer Vision and ML! Open to research collaborations and internship opportunities.*
+*Passionate about Deep Learning Research and Medical AI! Open to research collaborations and graduate opportunities.*
