@@ -2,12 +2,15 @@
 
 I'm Rushir Bhavsar, a recent Computer Science graduate from Nirma University.
 
-## About Me
-- 🎓 B.Tech in Computer Science | Nirma University (2019-2023) ✅
-- 💻 Passionate about AI/ML, Computer Vision, and Deep Learning Research
-- 🌱 Published researcher in Medical AI, Quantum ML, and Computer Vision
-- 🎯 Heading to Arizona State University for Master's in Data Science (Fall 2023)
-- 📍 Based in Ahmedabad, India
+## 😀 About Me
+
+![Education](https://img.shields.io/badge/Education-B.Tech%20Computer%20Science-blue?style=for-the-badge)
+![University](https://img.shields.io/badge/University-Nirma%20University-orange?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Graduate%20(2023)-success?style=for-the-badge)
+![Next](https://img.shields.io/badge/Next-ASU%20Master's%20(Fall%202023)-red?style=for-the-badge)
+![Publications](https://img.shields.io/badge/Publications-IEEE%20Access%20%7C%20Conferences-blueviolet?style=for-the-badge)
+![Research](https://img.shields.io/badge/Research-Computer%20Vision%20%7C%20Quantum%20ML%20%7C%20Medical%20AI-yellow?style=for-the-badge)
+![Location](https://img.shields.io/badge/Location-Ahmedabad%2C%20India-green?style=for-the-badge)
 
 ## Tech Stack
 
@@ -113,10 +116,9 @@ Advanced computer vision pipeline for automated diamond shape classification and
 
 **GitHub:** [diamond-shape-segmentation](https://github.com/rushirb2001/diamond-shape-segmentation)
 
-## Connect With Me
-- 📧 Email: bhavsarrushir@gmail.com
-- 💼 [LinkedIn](https://www.linkedin.com/in/rushir-bhavsar/)
-- 🐙 [GitHub](https://github.com/rushirb2001)
+## 📫 Connect With Me
+
+[<img align="center" alt="Rushir Bhavsar | LinkedIn" height="30px" src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"/>](https://www.linkedin.com/in/rushir-bhavsar/) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | Mail" height="30px" src="https://cdn-icons-png.flaticon.com/512/732/732200.png"/>](mailto:bhavsarrushir@gmail.com) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | GitHub" height="30px" src="https://cdn-icons-png.flaticon.com/512/733/733553.png"/>](https://github.com/rushirb2001)
 
 ---
 *Recent CS Graduate | Published Researcher | Heading to ASU for Master's in Data Science*
