@@ -1,16 +1,16 @@
 # Hi there! 👋
 
-I'm Rushir Bhavsar, a recent Computer Science graduate from Nirma University.
+I'm Rushir Bhavsar, a graduate student at Arizona State University specializing in Data Science and AI/ML.
 
 ## 😀 About Me
 
-![Education](https://img.shields.io/badge/Education-B.Tech%20Computer%20Science-blue?style=for-the-badge)
-![University](https://img.shields.io/badge/University-Nirma%20University-orange?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Graduate%20(2023)-success?style=for-the-badge)
-![Next](https://img.shields.io/badge/Next-ASU%20Master's%20(Fall%202023)-red?style=for-the-badge)
+![Education](https://img.shields.io/badge/Education-M.S.%20Data%20Science%20%26%20Analytics-blue?style=for-the-badge)
+![University](https://img.shields.io/badge/University-Arizona%20State%20University-maroon?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Graduate%20Student%20(2023--2025)-success?style=for-the-badge)
+![Undergrad](https://img.shields.io/badge/Undergrad-Nirma%20University%20(2023)-orange?style=for-the-badge)
 ![Publications](https://img.shields.io/badge/Publications-IEEE%20Access%20%7C%20Conferences-blueviolet?style=for-the-badge)
 ![Research](https://img.shields.io/badge/Research-Computer%20Vision%20%7C%20Quantum%20ML%20%7C%20Medical%20AI-yellow?style=for-the-badge)
-![Location](https://img.shields.io/badge/Location-Ahmedabad%2C%20India-green?style=for-the-badge)
+![Location](https://img.shields.io/badge/Location-Tempe%2C%20Arizona-red?style=for-the-badge)
 
 ## Tech Stack
 
@@ -30,95 +30,25 @@ I'm Rushir Bhavsar, a recent Computer Science graduate from Nirma University.
 [![MySQL Badge](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Git Badge](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
 
-## Publications & Research
+## 🎓 Graduate Coursework
 
-### 📄 Quantum Horizons: Predicting Asteroid Hazards with Supervised QML
-**IEEE Access Journal | Published 2023**
+- **Artificial Intelligence** - Advanced AI algorithms and applications
+- **Data Mining** - Large-scale data analysis and pattern recognition
+- **Statistical Machine Learning** - Probabilistic models and inference
+- **Convex Optimization** - Mathematical foundations for ML
 
-Enhanced computational efficiency by 25.12% by applying advanced quantum feature mapping and dimensionality reduction on 4,000+ asteroid trajectory records.
+## 📊 GitHub Stats
 
-**Key Achievements:**
-- Boosted asteroid classification accuracy by 23% over baseline to 98.11% accuracy and 92.69% F1-score
-- Developed Quantum Machine Learning (QML) framework with Variational Quantum Circuits (VQC)
-- Implemented Pegasos Quantum Support Vector Classifier (PQSVC) and Fidelity Quantum Kernels
-- Deployed on IBM's 32-qubit simulator
-
-**Tech Stack:** Python, Qiskit, PyTorch, Scikit-Learn, NumPy
-
----
-
-### 📄 MetaHate: AI and Blockchain Framework for Hate Speech Detection
-**Published 2023**
-
-Architected MetaHate, an AI and blockchain framework to combat hate speech in metaverse gaming environments.
-
-**Key Contributions:**
-- Achieved 86.01% accuracy in hate-speech detection using gradient boosting models
-- Worked with Hindi-English code-mixed datasets for multilingual detection
-- Integrated blockchain technology for transparent and decentralized content moderation
-
-**Impact:** Advancing responsible AI for metaverse safety and digital content moderation
-
----
-
-## Major Projects
-
-### 🔬 Deep Ensemble Mammogram Classification Using One-Shot Segmentation
-**Nirma University | July - December 2022**
-
-Advanced deep learning research for automated breast cancer detection using ensemble methods and transfer learning.
-
-**Key Achievements:**
-- Aggregated and preprocessed 7,000+ mammogram images from 7 diverse sources
-- Applied panoptic annotation and semantic segmentation with convolutional autoencoders
-- Improved data processing efficiency by 27%
-- Enhanced classification accuracy by 23% over baseline to 81%
-- Combined ResNet, U-Net, EfficientNet, MobileNet with one-shot transfer learning
-- Used Tree-based Boosting Ensembling for final predictions
-
-**Tech Stack:** PyTorch, TensorFlow, OpenCV, NumPy, Pandas, Scikit-Learn
-
-**Impact:** Research led to academic dissemination in medical AI
-
----
-
-### 🚗 License Plate Detection & Recognition System
-**Nirma University | August 2022 - August 2023**
-
-Deep learning-based OCR system for license plate detection and character recognition in challenging conditions.
-
-**Key Achievements:**
-- Aggregated and annotated 10,000+ license plate images using TensorFlow Object Detection API
-- Boosted OCR model accuracy by 18%
-- Engineered ensemble learning model for 480p and noisy 1080p images
-- Achieved 86% letter detection efficacy and 95% IoU
-- Optimized YOLOv5 and Localized Object Tracking (LOT) for edge devices
-- Cut detection latency by 13% and raised detection accuracy by 22%
-
-**Tech Stack:** TensorFlow, YOLOv5, PyTorch, OpenCV, Python
-
-**Impact:** Research led to academic dissemination
-
----
-
-### 🔹 Diamond Shape Segmentation | MiNeD Hackathon 2022
-**Nirma University | August 2022**
-
-Advanced computer vision pipeline for automated diamond shape classification and segmentation across 14 shape categories.
-
-**Key Features:**
-- Processed 57,000+ diamond images across 14 distinct shapes
-- Implemented hybrid segmentation approach combining GrabCut algorithm with CLAHE preprocessing
-- Achieved high-quality background removal with adaptive thresholding
-- Created interactive CLI for batch processing and video generation
-
-**Tech Stack:** Python, OpenCV, NumPy, Pandas, Matplotlib
-
-**GitHub:** [diamond-shape-segmentation](https://github.com/rushirb2001/diamond-shape-segmentation)
+<p align="center">
+  <a href="https://github.com/rushirb2001">
+    <img height="180em" src="https://github-readme-stats.vercel.app/api?username=rushirb2001&show_icons=true&theme=radical&count_private=true&rank_icon=github"/>
+    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=rushirb2001&layout=compact&langs_count=8&theme=radical"/>
+  </a>
+</p>
 
 ## 📫 Connect With Me
 
 [<img align="center" alt="Rushir Bhavsar | LinkedIn" height="30px" src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"/>](https://www.linkedin.com/in/rushir-bhavsar/) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | Mail" height="30px" src="https://cdn-icons-png.flaticon.com/512/732/732200.png"/>](mailto:bhavsarrushir@gmail.com) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | GitHub" height="30px" src="https://cdn-icons-png.flaticon.com/512/733/733553.png"/>](https://github.com/rushirb2001)
 
 ---
-*Recent CS Graduate | Published Researcher | Heading to ASU for Master's in Data Science*
+*Graduate Student @ ASU | Published Researcher | Exploring Data Science & Advanced AI*
