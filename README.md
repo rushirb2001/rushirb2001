@@ -7,9 +7,9 @@ I'm Rushir Bhavsar, a graduate student at Arizona State University specializing 
 ![Education](https://img.shields.io/badge/Education-M.S.%20Data%20Science%20%26%20Analytics-blue?style=for-the-badge)
 ![University](https://img.shields.io/badge/University-Arizona%20State%20University-maroon?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Graduate%20Student%20(2023--2025)-success?style=for-the-badge)
-![Undergrad](https://img.shields.io/badge/Undergrad-Nirma%20University%20(2023)-orange?style=for-the-badge)
+![Role](https://img.shields.io/badge/Role-AI%20Research%20Intern%20%40%20GIOSTAR.AI-critical?style=for-the-badge)
 ![Publications](https://img.shields.io/badge/Publications-IEEE%20Access%20%7C%20Conferences-blueviolet?style=for-the-badge)
-![Research](https://img.shields.io/badge/Research-Computer%20Vision%20%7C%20Quantum%20ML%20%7C%20Medical%20AI-yellow?style=for-the-badge)
+![Research](https://img.shields.io/badge/Research-Medical%20AI%20%7C%20Signal%20Processing%20%7C%20Computer%20Vision-yellow?style=for-the-badge)
 ![Location](https://img.shields.io/badge/Location-Tempe%2C%20Arizona-red?style=for-the-badge)
 
 ## Tech Stack
@@ -28,7 +28,24 @@ I'm Rushir Bhavsar, a graduate student at Arizona State University specializing 
 [![Jupyter Notebook Badge](https://img.shields.io/badge/Jupyter%20Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
 [![SQL Badge](https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![MySQL Badge](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![AWS Badge](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
+[![Docker Badge](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![Git Badge](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
+
+## 💼 Work Experience
+
+### 🧠 AI Research Intern | GIOSTAR.AI
+**Nov 2023 - Present** | San Francisco, CA
+
+🎯 **Focus:** Medical AI • EEG/ECG Signal Processing • Brain-Computer Interfaces
+
+**Impact Highlights:**
+- ⚡ Reduced EEG processing latency by **25%** for real-time applications
+- 🎯 Achieved **90%+ accuracy** in epilepsy detection with PyTorch models
+- 🚀 Cut inference latency by **30%** on AWS EC2 deployments
+- 📉 Reduced false positives by **18%** in artifact detection
+
+**Tech:** PyTorch • TensorFlow • AWS • Vision Transformers • U-Net • Jenkins
 
 ## 🎓 Graduate Coursework
 
@@ -41,7 +58,7 @@ I'm Rushir Bhavsar, a graduate student at Arizona State University specializing 
 
 <p align="center">
   <a href="https://github.com/rushirb2001">
-    <img height="180em" src="https://github-readme-stats.vercel.app/api?username=rushirb2001&show_icons=true&theme=radical&count_private=true&rank_icon=github"/>
+    <img height="180em" src="https://github-readme-stats.vercel.app/api?username=rushirb2001&show_icons=true&theme=radical&include_all_commits=true&count_private=true"/>
     <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=rushirb2001&layout=compact&langs_count=8&theme=radical"/>
   </a>
 </p>
@@ -51,4 +68,4 @@ I'm Rushir Bhavsar, a graduate student at Arizona State University specializing 
 [<img align="center" alt="Rushir Bhavsar | LinkedIn" height="30px" src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"/>](https://www.linkedin.com/in/rushir-bhavsar/) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | Mail" height="30px" src="https://cdn-icons-png.flaticon.com/512/732/732200.png"/>](mailto:bhavsarrushir@gmail.com) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | GitHub" height="30px" src="https://cdn-icons-png.flaticon.com/512/733/733553.png"/>](https://github.com/rushirb2001)
 
 ---
-*Graduate Student @ ASU | Published Researcher | Exploring Data Science & Advanced AI*
+*Graduate Student @ ASU | AI Research Intern @ GIOSTAR.AI | Medical AI & Signal Processing Researcher*
