@@ -7,9 +7,9 @@ I'm Rushir Bhavsar, a graduate student at Arizona State University specializing 
 ![Education](https://img.shields.io/badge/Education-M.S.%20Data%20Science%20%26%20Analytics-blue?style=for-the-badge)
 ![University](https://img.shields.io/badge/University-Arizona%20State%20University-maroon?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Graduate%20Student%20(2023--2025)-success?style=for-the-badge)
-![Role](https://img.shields.io/badge/Role-AI%20Research%20Intern%20%40%20GIOSTAR.AI-critical?style=for-the-badge)
+![Role](https://img.shields.io/badge/Role-GenAI%20Engineering%20Intern%20%40%20Talin%20Labs-critical?style=for-the-badge)
 ![Publications](https://img.shields.io/badge/Publications-IEEE%20Access%20%7C%20Conferences-blueviolet?style=for-the-badge)
-![Research](https://img.shields.io/badge/Research-Medical%20AI%20%7C%20Signal%20Processing%20%7C%20Computer%20Vision-yellow?style=for-the-badge)
+![Research](https://img.shields.io/badge/Research-GenAI%20%7C%20LLMs%20%7C%20RAG%20%7C%20Medical%20AI-yellow?style=for-the-badge)
 ![Location](https://img.shields.io/badge/Location-Tempe%2C%20Arizona-red?style=for-the-badge)
 
 ## Tech Stack
@@ -21,6 +21,7 @@ I'm Rushir Bhavsar, a graduate student at Arizona State University specializing 
 [![TensorFlow Badge](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/)
 [![Keras Badge](https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white)](https://keras.io/)
 [![PyTorch Badge](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Hugging Face Badge](https://img.shields.io/badge/Hugging%20Face-FFCA28?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/)
 [![OpenCV Badge](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)](https://opencv.org/)
 [![Scikit-Learn Badge](https://img.shields.io/badge/Scikit%20Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![NumPy Badge](https://img.shields.io/badge/Numpy-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
@@ -29,13 +30,32 @@ I'm Rushir Bhavsar, a graduate student at Arizona State University specializing 
 [![SQL Badge](https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![MySQL Badge](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![AWS Badge](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
+[![Azure Badge](https://img.shields.io/badge/Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/)
 [![Docker Badge](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Kubernetes Badge](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![LangChain Badge](https://img.shields.io/badge/LangChain-2E8B57?style=for-the-badge)](https://langchain.com/)
+[![FastAPI Badge](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Git Badge](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
 
 ## 💼 Work Experience
 
+### 🤖 GenAI Engineering Intern | Talin Labs Inc
+**May 2024 - Present** | Los Angeles, CA
+
+🎯 **Focus:** Generative AI • LLMs • RAG • AI Chatbots • MLOps
+
+**Impact Highlights:**
+- 🚀 Increased system reliability by **42%** and data accessibility by **63%**
+- 🤖 Boosted chatbot response accuracy by **37%** with transformer-based models
+- ⚡ Achieved **86%** increase in data throughput with RAG techniques
+- 📦 Reduced model size by **29%** using 8-bit quantization
+
+**Tech:** LangChain • OpenAI API • Mistral • HuggingFace • Docker • Kubernetes • AWS • Azure • Sentence-BERT
+
+---
+
 ### 🧠 AI Research Intern | GIOSTAR.AI
-**Nov 2023 - Present** | San Francisco, CA
+**Nov 2023 - May 2024** | San Francisco, CA
 
 🎯 **Focus:** Medical AI • EEG/ECG Signal Processing • Brain-Computer Interfaces
 
@@ -68,4 +88,4 @@ I'm Rushir Bhavsar, a graduate student at Arizona State University specializing 
 [<img align="center" alt="Rushir Bhavsar | LinkedIn" height="30px" src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"/>](https://www.linkedin.com/in/rushir-bhavsar/) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | Mail" height="30px" src="https://cdn-icons-png.flaticon.com/512/732/732200.png"/>](mailto:bhavsarrushir@gmail.com) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | GitHub" height="30px" src="https://cdn-icons-png.flaticon.com/512/733/733553.png"/>](https://github.com/rushirb2001)
 
 ---
-*Graduate Student @ ASU | AI Research Intern @ GIOSTAR.AI | Medical AI & Signal Processing Researcher*
+*Graduate Student @ ASU | GenAI Engineer @ Talin Labs | Specializing in LLMs, RAG & AI Systems*
