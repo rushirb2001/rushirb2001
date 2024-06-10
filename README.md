@@ -69,10 +69,10 @@ I'm Rushir Bhavsar, a graduate student at Arizona State University specializing 
 
 ## 🎓 Graduate Coursework
 
-- **Artificial Intelligence** - Advanced AI algorithms and applications
-- **Data Mining** - Large-scale data analysis and pattern recognition
-- **Statistical Machine Learning** - Probabilistic models and inference
-- **Convex Optimization** - Mathematical foundations for ML
+[![Artificial Intelligence](https://img.shields.io/badge/Artificial_Intelligence-FF6B6B?style=for-the-badge&logo=brain&logoColor=white)](https://www.asu.edu/)
+[![Data Mining](https://img.shields.io/badge/Data_Mining-4ECDC4?style=for-the-badge&logo=databricks&logoColor=white)](https://www.asu.edu/)
+[![Statistical Machine Learning](https://img.shields.io/badge/Statistical_Machine_Learning-95E1D3?style=for-the-badge&logo=scipy&logoColor=white)](https://www.asu.edu/)
+[![Convex Optimization](https://img.shields.io/badge/Convex_Optimization-F38181?style=for-the-badge&logo=wolframmathematica&logoColor=white)](https://www.asu.edu/)
 
 ## 📊 GitHub Stats
 
