@@ -5,12 +5,12 @@
 ![Education](https://img.shields.io/badge/Education-M.S.%20Data%20Science%20%26%20Analytics-blue?style=for-the-badge)
 ![University](https://img.shields.io/badge/University-Arizona%20State%20University-maroon?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Graduate%20Student%20(2023--2025)-success?style=for-the-badge)
-![Role](https://img.shields.io/badge/Role-GenAI%20Engineering%20Intern%20%40%20Talin%20Labs-critical?style=for-the-badge)
+![Role](https://img.shields.io/badge/Role-Scientific%20Developer%20%40%20Cadence-critical?style=for-the-badge)
 ![Publications](https://img.shields.io/badge/Publications-IEEE%20Access%20%7C%20Conferences-blueviolet?style=for-the-badge)
-![Research](https://img.shields.io/badge/Research-GenAI%20%7C%20LLMs%20%7C%20RAG%20%7C%20Medical%20AI-yellow?style=for-the-badge)
+![Research](https://img.shields.io/badge/Research-Protein%20Modeling%20%7C%20GenAI%20%7C%20CUDA%20%7C%20Medical%20AI-yellow?style=for-the-badge)
 ![Location](https://img.shields.io/badge/Location-Tempe%2C%20Arizona-red?style=for-the-badge)
 
-I'm a **Data Science graduate student** at Arizona State University with a passion for building intelligent AI systems. Currently working on cutting-edge **Generative AI** and **LLM** applications, specializing in **RAG pipelines**, **chatbots**, and **medical AI**. Published researcher with experience in **Computer Vision**, **Quantum ML**, and **Deep Learning**.
+I'm a **Data Science graduate student** at Arizona State University with a passion for building intelligent AI systems. Currently working on cutting-edge **AI/ML for Protein Modeling** with **CUDA optimization** and **distributed systems**. Experienced in **Generative AI**, **LLMs**, **RAG pipelines**, and **medical AI**. Published researcher with expertise in **Computer Vision**, **Quantum ML**, and **Deep Learning**.
 
 ## Tech Stack
 
@@ -24,6 +24,7 @@ I'm a **Data Science graduate student** at Arizona State University with a passi
 [![TensorFlow Badge](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/)
 [![Keras Badge](https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white)](https://keras.io/)
 [![PyTorch Badge](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![CUDA Badge](https://img.shields.io/badge/CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white)](https://developer.nvidia.com/cuda-toolkit)
 [![Hugging Face Badge](https://img.shields.io/badge/Hugging%20Face-FFCA28?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/)
 [![Scikit-Learn Badge](https://img.shields.io/badge/Scikit%20Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![OpenCV Badge](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)](https://opencv.org/)
@@ -51,6 +52,21 @@ I'm a **Data Science graduate student** at Arizona State University with a passi
 [![LangChain Badge](https://img.shields.io/badge/LangChain-2E8B57?style=for-the-badge)](https://langchain.com/)
 
 ## 💼 Work Experience
+
+### 🧬 Scientific Developer - AI/ML | Cadence Design Systems
+**Jul 2025 - Present** | Tempe, AZ
+
+🎯 **Focus:** Protein Modeling • CUDA Optimization • Distributed ML • PyTorch Lightning
+
+**Impact Highlights:**
+- ⚡ Reduced preprocessing time by **60%** for production ML pipeline processing 1M+ sequences
+- 🚀 Improved cluster quality by **35%** and reduced computational overhead by **45%** with CUDA-RAPIDS
+- 🔥 Achieved **80%** faster training convergence with custom CUDA kernels
+- 📈 Delivered **6x speedup** in hyperparameter optimization for production deployments
+
+**Tech:** PyTorch Lightning • CUDA • RAPIDS • Scikit-Learn • Distributed Systems • YAML
+
+---
 
 ### 🤖 GenAI Engineering Intern | Talin Labs Inc
 **May 2024 - Sep 2024** | Los Angeles, CA
@@ -101,4 +117,4 @@ I'm a **Data Science graduate student** at Arizona State University with a passi
 [<img align="center" alt="Rushir Bhavsar | LinkedIn" height="30px" src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"/>](https://www.linkedin.com/in/rushir-bhavsar/) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | Mail" height="30px" src="https://cdn-icons-png.flaticon.com/512/732/732200.png"/>](mailto:bhavsarrushir@gmail.com) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | GitHub" height="30px" src="https://cdn-icons-png.flaticon.com/512/733/733553.png"/>](https://github.com/rushirb2001)
 
 ---
-*Graduate Student @ ASU | GenAI Engineer @ Talin Labs | Specializing in LLMs, RAG & AI Systems*
+*Graduate Student @ ASU | Scientific Developer @ Cadence | Specializing in AI/ML, Protein Modeling & CUDA Optimization*
