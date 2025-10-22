@@ -1,16 +1,20 @@
-# Hi there 👋, I'm Rushir Bhavsar
+# `Hello There! I'm Rushir Bhavsar`
 
-## 😀 About Me
+## About Me
 
 ![Education](https://img.shields.io/badge/Education-M.S.%20Data%20Science%20%26%20Analytics-blue?style=for-the-badge)
 ![University](https://img.shields.io/badge/University-Arizona%20State%20University-maroon?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Graduate%20Student%20(2023--2025)-success?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Graduating%20June%202025-success?style=for-the-badge)
 ![Role](https://img.shields.io/badge/Role-Scientific%20Developer%20%40%20Cadence-critical?style=for-the-badge)
 ![Publications](https://img.shields.io/badge/Publications-IEEE%20Access%20%7C%20Conferences-blueviolet?style=for-the-badge)
 ![Research](https://img.shields.io/badge/Research-Protein%20Modeling%20%7C%20GenAI%20%7C%20CUDA%20%7C%20Medical%20AI-yellow?style=for-the-badge)
 ![Location](https://img.shields.io/badge/Location-Tempe%2C%20Arizona-red?style=for-the-badge)
 
 I'm a **Data Science graduate student** at Arizona State University with a passion for building intelligent AI systems. Currently working on cutting-edge **AI/ML for Protein Modeling** with **CUDA optimization** and **distributed systems**. Experienced in **Generative AI**, **LLMs**, **RAG pipelines**, and **medical AI**. Published researcher with expertise in **Computer Vision**, **Quantum ML**, and **Deep Learning**.
+
+## Connect With Me
+
+[<img align="center" alt="Rushir Bhavsar | LinkedIn" height="30px" src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"/>](https://www.linkedin.com/in/rushir-bhavsar/) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | Mail" height="30px" src="https://cdn-icons-png.flaticon.com/512/732/732200.png"/>](mailto:bhavsarrushir@gmail.com) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | Portfolio" height="30px" src="https://cdn-icons-png.flaticon.com/512/3059/3059997.png"/>](https://rushirbhavsar.vercel.app/)
 
 ## Tech Stack
 
@@ -51,32 +55,32 @@ I'm a **Data Science graduate student** at Arizona State University with a passi
 [![Hadoop Badge](https://img.shields.io/badge/Hadoop-66CCFF?style=for-the-badge&logo=apachehadoop&logoColor=black)](https://hadoop.apache.org/)
 [![LangChain Badge](https://img.shields.io/badge/LangChain-2E8B57?style=for-the-badge)](https://langchain.com/)
 
-## 💼 Work Experience
+## Work Experience
 
-### 🧬 Scientific Developer - AI/ML | Cadence Design Systems
-**Jul 2025 - Present** | Tempe, AZ
+### Scientific Developer - AI/ML | Cadence Design Systems
+**Jul 2025 - Oct 2025** | Tempe, AZ
 
-🎯 **Focus:** Protein Modeling • CUDA Optimization • Distributed ML • PyTorch Lightning
+**Focus:** Protein Modeling • CUDA Optimization • Distributed ML • PyTorch Lightning
 
 **Impact Highlights:**
-- ⚡ Reduced preprocessing time by **60%** for production ML pipeline processing 1M+ sequences
-- 🚀 Improved cluster quality by **35%** and reduced computational overhead by **45%** with CUDA-RAPIDS
-- 🔥 Achieved **80%** faster training convergence with custom CUDA kernels
-- 📈 Delivered **6x speedup** in hyperparameter optimization for production deployments
+- Reduced preprocessing time by **60%** for production ML pipeline processing 1M+ sequences
+- Improved cluster quality by **35%** and reduced computational overhead by **45%** with CUDA-RAPIDS
+- Achieved **80%** faster training convergence with custom CUDA kernels
+- Delivered **6x speedup** in hyperparameter optimization for production deployments
 
 **Tech:** PyTorch Lightning • CUDA • RAPIDS • Scikit-Learn • Distributed Systems • YAML
 
 ---
 
-### 🤖 GenAI Engineering Intern | Talin Labs Inc
+### GenAI Engineering Intern | Talin Labs Inc
 **May 2024 - Sep 2024** | Los Angeles, CA
 
-🎯 **Focus:** Generative AI • LLMs • RAG • AI Chatbots • MLOps
+**Focus:** Generative AI • LLMs • RAG • AI Chatbots • MLOps
 
 **Impact Highlights:**
-- 🚀 Increased system reliability by **42%** and data accessibility by **63%**
-- 🤖 Boosted chatbot response accuracy by **37%** with transformer-based models
-- ⚡ Achieved **86%** increase in data throughput with RAG techniques
+- Increased system reliability by **42%** and data accessibility by **63%**
+- Boosted chatbot response accuracy by **37%** with transformer-based models
+- Achieved **86%** increase in data throughput with RAG techniques
 - 📦 Reduced model size by **29%** using 8-bit quantization
 
 **Tech:** LangChain • OpenAI API • Mistral • HuggingFace • Docker • Kubernetes • AWS • Azure • Sentence-BERT
@@ -107,14 +111,14 @@ I'm a **Data Science graduate student** at Arizona State University with a passi
 
 <p align="center">
   <a href="https://github.com/rushirb2001">
-    <img height="180em" src="https://github-readme-stats.vercel.app/api?username=rushirb2001&show_icons=true&theme=radical&include_all_commits=true&count_private=true"/>
+    <img height="180em" src="https://github-readme-stats.vercel.app/api?username=rushirb2001&show_icons=true&theme=radical"/>
     <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=rushirb2001&layout=compact&langs_count=8&theme=radical"/>
   </a>
 </p>
 
-## 📫 Connect With Me
-
-[<img align="center" alt="Rushir Bhavsar | LinkedIn" height="30px" src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"/>](https://www.linkedin.com/in/rushir-bhavsar/) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | Mail" height="30px" src="https://cdn-icons-png.flaticon.com/512/732/732200.png"/>](mailto:bhavsarrushir@gmail.com) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | GitHub" height="30px" src="https://cdn-icons-png.flaticon.com/512/733/733553.png"/>](https://github.com/rushirb2001)
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=rushirb2001&label=Profile%20views&color=0e75b6&style=flat" alt="rushirb2001" />
+</p>
 
 ---
 *Graduate Student @ ASU | Scientific Developer @ Cadence | Specializing in AI/ML, Protein Modeling & CUDA Optimization*
