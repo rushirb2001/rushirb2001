@@ -1,4 +1,6 @@
-# `Hello There! I'm Rushir Bhavsar`
+<h1 align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Inter&weight=600&size=32&duration=800&pause=1200&color=FFFFFF&center=true&vCenter=true&width=800&lines=Hello+There!+I'm+Rushir+Bhavsar;Data+Scientist+|+AI%2FML+Engineer;Building+Scalable+%26+Intelligent+Systems" alt="Typing SVG" />
+</h1>
 
 ## About Me
 
