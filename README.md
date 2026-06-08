@@ -1,126 +1,156 @@
 <h1 align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Inter&weight=600&size=32&duration=800&pause=1200&color=FFFFFF&center=true&vCenter=true&width=800&lines=Hello+There!+I'm+Rushir+Bhavsar;Data+Scientist+|+AI%2FML+Engineer;Building+Scalable+%26+Intelligent+Systems" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=30&duration=3000&pause=1000&color=FFFFFF&center=true&vCenter=true&width=820&lines=Hi%2C+I'm+Rushir+Bhavsar;ML+Researcher+%7C+AI%2FML+Engineer;Physics-Informed+ML+%C2%B7+GenAI+%C2%B7+HPC;Building+Scalable+%26+Intelligent+Systems" alt="Typing SVG" />
 </h1>
+
+<table align="center">
+  <tr>
+    <td align="center" valign="middle">
+      <a href="https://www.linkedin.com/in/rushir-bhavsar/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
+      <br/><br/>
+      <a href="mailto:rushirbhavsar@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
+      <br/><br/>
+      <a href="https://rushirbhavsar.vercel.app/"><img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio"/></a>
+      <br/><br/>
+      <img src="https://komarev.com/ghpvc/?username=rushirb2001&label=Profile%20views&color=58A6FF&style=flat-square" alt="Profile views" />
+    </td>
+    <td valign="middle"><img height="195em" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=rushirb2001&theme=tokyonight" alt="GitHub Stats" /></td>
+    <td valign="middle"><img height="195em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=rushirb2001&theme=tokyonight" alt="Top Languages" /></td>
+    <td valign="middle"><img height="195em" src="https://github-readme-streak-stats.herokuapp.com/?user=rushirb2001&theme=tokyonight&hide_border=true" alt="GitHub Streak" /></td>
+  </tr>
+</table>
 
 ## About Me
 
-![Education](https://img.shields.io/badge/Education-M.S.%20Data%20Science%20%26%20Analytics-blue?style=for-the-badge)
-![University](https://img.shields.io/badge/University-Arizona%20State%20University-maroon?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Graduating%20June%202025-success?style=for-the-badge)
-![Role](https://img.shields.io/badge/Role-Scientific%20Developer%20%40%20Cadence-critical?style=for-the-badge)
-![Publications](https://img.shields.io/badge/Publications-IEEE%20Access%20%7C%20Conferences-blueviolet?style=for-the-badge)
-![Research](https://img.shields.io/badge/Research-Protein%20Modeling%20%7C%20GenAI%20%7C%20CUDA%20%7C%20Medical%20AI-yellow?style=for-the-badge)
-![Location](https://img.shields.io/badge/Location-Tempe%2C%20Arizona-red?style=for-the-badge)
+**ML Researcher** at Arizona State University, architecting a modular CCP plasma-simulation framework (**PyTorch Lightning + JAX**) with swappable architectures, samplers, and collocation strategies for **Applied Materials** semiconductor R&D.
 
-I'm a **Data Science graduate student** at Arizona State University with a passion for building intelligent AI systems. Currently working on cutting-edge **AI/ML for Protein Modeling** with **CUDA optimization** and **distributed systems**. Experienced in **Generative AI**, **LLMs**, **RAG pipelines**, and **medical AI**. Published researcher with expertise in **Computer Vision**, **Quantum ML**, and **Deep Learning**.
-
-## Connect With Me
-
-[<img align="center" alt="Rushir Bhavsar | LinkedIn" height="30px" src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"/>](https://www.linkedin.com/in/rushir-bhavsar/) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | Mail" height="30px" src="https://cdn-icons-png.flaticon.com/512/732/732200.png"/>](mailto:bhavsarrushir@gmail.com) &nbsp; &nbsp; [<img align="center" alt="Rushir Bhavsar | Portfolio" height="30px" src="https://cdn-icons-png.flaticon.com/512/3059/3059997.png"/>](https://rushirbhavsar.vercel.app/)
+- Author of **MACE-PINNs** (M.S. thesis), a multi-network architecture for coupled-equation Physics-Informed Neural Networks.
+- Previously built protein-thermostability & developability ML pipelines at **OpenEye / Cadence Design Systems** (ESM2 650M pLM, RAPIDS, contrastive learning at 50K+ batch scale).
+- Shipped production **GenAI / RAG** systems at **Talin Labs** (fine-tuned Mistral-7B on Kubernetes, multi-agent LangChain, p95 < 200ms @ 10K users).
+- **M.S. Data Science (High-Performance Computing)** @ ASU · GPA **3.72/4.0** · published in **IEEE Access**.
+- Interests: Physics-Informed Neural Networks, LLM orchestration & agents, GPU-accelerated ML, edge/backend system design.
 
 ## Tech Stack
 
-[![Python Badge](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=darkgreen)](https://www.python.org/)
-[![C Badge](https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
-[![C++ Badge](https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
-[![Java Badge](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://www.oracle.com/java/technologies/)
-[![HTML Badge](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://www.w3schools.com/html/)
-[![CSS Badge](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white)](https://www.w3schools.com/css/)
-[![JavaScript Badge](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![TensorFlow Badge](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/)
-[![Keras Badge](https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white)](https://keras.io/)
-[![PyTorch Badge](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![CUDA Badge](https://img.shields.io/badge/CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white)](https://developer.nvidia.com/cuda-toolkit)
-[![Hugging Face Badge](https://img.shields.io/badge/Hugging%20Face-FFCA28?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/)
-[![Scikit-Learn Badge](https://img.shields.io/badge/Scikit%20Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
-[![OpenCV Badge](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)](https://opencv.org/)
-[![NumPy Badge](https://img.shields.io/badge/Numpy-013243?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
-[![Pandas Badge](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
-[![Anaconda Badge](https://img.shields.io/badge/Anaconda-44A833?style=for-the-badge&logo=anaconda&logoColor=white)](https://www.anaconda.com/)
-[![Jupyter Notebook Badge](https://img.shields.io/badge/Jupyter%20Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org/)
-[![SQL Badge](https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Apache Spark Badge](https://img.shields.io/badge/Apache%20Spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)](https://spark.apache.org/)
-[![MySQL Badge](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
-[![PostgreSQL Badge](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![MongoDB Badge](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-[![Django Badge](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
-[![Flask Badge](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/en/2.0.x/)
-[![FastAPI Badge](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Git Badge](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
-[![Postman Badge](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)](https://www.postman.com/)
-[![Docker Badge](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-[![Kubernetes Badge](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
-[![AWS Badge](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
-[![Azure Badge](https://img.shields.io/badge/Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/)
-[![GCP Badge](https://img.shields.io/badge/GCP-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)](https://cloud.google.com/)
-[![Streamlit Badge](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![Hadoop Badge](https://img.shields.io/badge/Hadoop-66CCFF?style=for-the-badge&logo=apachehadoop&logoColor=black)](https://hadoop.apache.org/)
-[![LangChain Badge](https://img.shields.io/badge/LangChain-2E8B57?style=for-the-badge)](https://langchain.com/)
+<table>
+  <tr>
+    <td valign="middle"><b>Languages</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+      <img src="https://img.shields.io/badge/C/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++"/>
+      <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
+      <img src="https://img.shields.io/badge/Swift-F05138?style=for-the-badge&logo=swift&logoColor=white" alt="Swift"/>
+      <img src="https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="SQL"/>
+      <img src="https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white" alt="Bash"/>
+    </td>
+  </tr>
+  <tr>
+    <td valign="middle"><b>AI / ML &amp; GenAI</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch"/>
+      <img src="https://img.shields.io/badge/PyTorch_Lightning-792EE5?style=for-the-badge&logo=lightning&logoColor=white" alt="PyTorch Lightning"/>
+      <img src="https://img.shields.io/badge/JAX/Flax-D35400?style=for-the-badge&logo=google&logoColor=white" alt="JAX"/>
+      <img src="https://img.shields.io/badge/CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white" alt="CUDA"/>
+      <img src="https://img.shields.io/badge/RAPIDS_(cuDF/cuML)-7400B8?style=for-the-badge&logo=nvidia&logoColor=white" alt="RAPIDS"/>
+      <img src="https://img.shields.io/badge/Hugging%20Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="Hugging Face"/>
+      <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="scikit-learn"/>
+      <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain"/>
+      <img src="https://img.shields.io/badge/Claude_/_MCP-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude / MCP"/>
+    </td>
+  </tr>
+  <tr>
+    <td valign="middle"><b>Data &amp; Backends</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/Apache_Spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white" alt="Spark"/>
+      <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
+      <img src="https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase"/>
+      <img src="https://img.shields.io/badge/Neo4j-4581C3?style=for-the-badge&logo=neo4j&logoColor=white" alt="Neo4j"/>
+      <img src="https://img.shields.io/badge/Qdrant-DC244C?style=for-the-badge&logo=qdrant&logoColor=white" alt="Qdrant"/>
+      <img src="https://img.shields.io/badge/Redis-FF4438?style=for-the-badge&logo=redis&logoColor=white" alt="Redis"/>
+      <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
+      <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js"/>
+    </td>
+  </tr>
+  <tr>
+    <td valign="middle"><b>Cloud &amp; DevOps</b></td>
+    <td>
+      <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white" alt="AWS"/>
+      <img src="https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Cloudflare"/>
+      <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
+      <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes"/>
+      <img src="https://img.shields.io/badge/MLflow-0194E2?style=for-the-badge&logo=mlflow&logoColor=white" alt="MLflow"/>
+      <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"/>
+    </td>
+  </tr>
+</table>
 
-## Work Experience
+## Experience
 
-### Scientific Developer - AI/ML | Cadence Design Systems
-**Jul 2025 - Oct 2025** | Tempe, AZ
+> <table width="100%">
+>   <tr>
+>     <td colspan="3" align="left" valign="middle"><img src="https://img.shields.io/badge/ML%20Researcher-Arizona%20State%20University-8C1D40?style=for-the-badge&labelColor=30363D" alt="ML Researcher @ Arizona State University"/><img src="https://img.shields.io/badge/Nov%202025%20%E2%80%93%20Present-30363D?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik03IDJ2Mkg1YTIgMiAwIDAgMC0yIDJ2MTRhMiAyIDAgMCAwIDIgMmgxNGEyIDIgMCAwIDAgMi0yVjZhMiAyIDAgMCAwLTItMmgtMlYyaC0ydjJIOVYySDd6bTEyIDh2MTBINVYxMGgxNHoiLz48L3N2Zz4%3D&logoColor=white" alt="Nov 2025 – Present"/><img src="https://img.shields.io/badge/Tempe,%20AZ-30363D?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAyYTcgNyAwIDAgMC03IDdjMCA1LjI1IDcgMTMgNyAxM3M3LTcuNzUgNy0xM2E3IDcgMCAwIDAtNy03em0wIDkuNUEyLjUgMi41IDAgMCAxIDEyIDYuNWEyLjUgMi41IDAgMCAxIDAgNXoiLz48L3N2Zz4%3D&logoColor=white" alt="Tempe, AZ"/><br/><br/>
+>       <img src="https://img.shields.io/badge/Physics--Informed_ML-30363D?style=for-the-badge" alt="Physics-Informed ML"/>
+>       <img src="https://img.shields.io/badge/JAX-D35400?style=for-the-badge&logo=google&logoColor=white" alt="JAX"/>
+>       <img src="https://img.shields.io/badge/PyTorch_Lightning-792EE5?style=for-the-badge&logo=lightning&logoColor=white" alt="PyTorch Lightning"/>
+>       <ul>
+>         <li>Architecting a modular CCP plasma-simulation framework with swappable architectures, samplers, collocation strategies, and interpolators for Applied Materials semiconductor R&amp;D.</li>
+>         <li>Ran <b>60+</b> experiment configurations with adaptive loss balancing, identifying the optimal training setup through reproducible experiment tracking.</li>
+>       </ul>
+>     </td>
+>   </tr>
+> </table>
 
-**Focus:** Protein Modeling • CUDA Optimization • Distributed ML • PyTorch Lightning
+> <table width="100%">
+>   <tr>
+>     <td colspan="3" align="left" valign="middle"><img src="https://img.shields.io/badge/ML%20Engineer%20Intern-Cadence%20Design%20Systems-E2231A?style=for-the-badge&labelColor=30363D" alt="ML Engineer Intern @ Cadence Design Systems"/><img src="https://img.shields.io/badge/Jul%202025%20%E2%80%93%20Oct%202025-30363D?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik03IDJ2Mkg1YTIgMiAwIDAgMC0yIDJ2MTRhMiAyIDAgMCAwIDIgMmgxNGEyIDIgMCAwIDAgMi0yVjZhMiAyIDAgMCAwLTItMmgtMlYyaC0ydjJIOVYySDd6bTEyIDh2MTBINVYxMGgxNHoiLz48L3N2Zz4%3D&logoColor=white" alt="Jul 2025 – Oct 2025"/><img src="https://img.shields.io/badge/Santa%20Fe,%20NM-30363D?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAyYTcgNyAwIDAgMC03IDdjMCA1LjI1IDcgMTMgNyAxM3M3LTcuNzUgNy0xM2E3IDcgMCAwIDAtNy03em0wIDkuNUEyLjUgMi41IDAgMCAxIDEyIDYuNWEyLjUgMi41IDAgMCAxIDAgNXoiLz48L3N2Zz4%3D&logoColor=white" alt="Santa Fe, NM"/><br/><br/>
+>       <img src="https://img.shields.io/badge/Protein_ML-30363D?style=for-the-badge" alt="Protein ML"/>
+>       <img src="https://img.shields.io/badge/ESM2-30363D?style=for-the-badge" alt="ESM2"/>
+>       <img src="https://img.shields.io/badge/RAPIDS-7400B8?style=for-the-badge&logo=nvidia&logoColor=white" alt="RAPIDS"/>
+>       <img src="https://img.shields.io/badge/Contrastive_Learning-30363D?style=for-the-badge" alt="Contrastive Learning"/>
+>       <img src="https://img.shields.io/badge/PyTorch_Lightning-792EE5?style=for-the-badge&logo=lightning&logoColor=white" alt="PyTorch Lightning"/>
+>       <ul>
+>         <li>Built an end-to-end protein-thermostability pipeline from scratch, <b>7.2 ms/seq</b> across <b>1M+</b> sequences using ESM2 (650M-param pLM), Hugging Face, cuDF, and PyTorch Lightning.</li>
+>         <li>Developed a contrastive-learning architecture (cuML + RAFT replacing GPR), scaling batches <b>333×</b> (150 → 50K+) on 5120-dim embeddings.</li>
+>         <li>Built a unified OmegaConf + Pydantic config framework parallelising <b>20+</b> antibody-developability experiments.</li>
+>       </ul>
+>     </td>
+>   </tr>
+> </table>
 
-**Impact Highlights:**
-- Reduced preprocessing time by **60%** for production ML pipeline processing 1M+ sequences
-- Improved cluster quality by **35%** and reduced computational overhead by **45%** with CUDA-RAPIDS
-- Achieved **80%** faster training convergence with custom CUDA kernels
-- Delivered **6x speedup** in hyperparameter optimization for production deployments
+> <table width="100%">
+>   <tr>
+>     <td colspan="3" align="left" valign="middle"><img src="https://img.shields.io/badge/GenAI%20Engineering%20Intern-Talin%20Labs-F5B700?style=for-the-badge&labelColor=30363D" alt="GenAI Engineering Intern @ Talin Labs"/><img src="https://img.shields.io/badge/Jun%202024%20%E2%80%93%20Sep%202024-30363D?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik03IDJ2Mkg1YTIgMiAwIDAgMC0yIDJ2MTRhMiAyIDAgMCAwIDIgMmgxNGEyIDIgMCAwIDAgMi0yVjZhMiAyIDAgMCAwLTItMmgtMlYyaC0ydjJIOVYySDd6bTEyIDh2MTBINVYxMGgxNHoiLz48L3N2Zz4%3D&logoColor=white" alt="Jun 2024 – Sep 2024"/><img src="https://img.shields.io/badge/Los%20Angeles,%20CA-30363D?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0xMiAyYTcgNyAwIDAgMC03IDdjMCA1LjI1IDcgMTMgNyAxM3M3LTcuNzUgNy0xM2E3IDcgMCAwIDAtNy03em0wIDkuNUEyLjUgMi41IDAgMCAxIDEyIDYuNWEyLjUgMi41IDAgMCAxIDAgNXoiLz48L3N2Zz4%3D&logoColor=white" alt="Los Angeles, CA"/><br/><br/>
+>       <img src="https://img.shields.io/badge/LLMs-30363D?style=for-the-badge" alt="LLMs"/>
+>       <img src="https://img.shields.io/badge/RAG-30363D?style=for-the-badge" alt="RAG"/>
+>       <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain"/>
+>       <img src="https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white" alt="Kubernetes"/>
+>       <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
+>       <ul>
+>         <li>Deployed fine-tuned <b>Mistral-7B-Q8</b> on K8s across <b>12+</b> enterprise on-prem environments at <b>p95 &lt; 200ms</b> for 10K users.</li>
+>         <li>Built a RAG evaluation framework over <b>10K</b> human-evaluated queries reaching <b>88%</b> accuracy (chunk precision, citation accuracy, cross-document consistency).</li>
+>         <li>Architected a <b>6-agent LangChain</b> system with intent-based routing over FAISS + PDF/XLSX/DOCX parsing, cutting manual document review from weeks to minutes.</li>
+>       </ul>
+>     </td>
+>   </tr>
+> </table>
 
-**Tech:** PyTorch Lightning • CUDA • RAPIDS • Scikit-Learn • Distributed Systems • YAML
+## Featured Projects
+
+| Project | Description | Stack |
+|---|---|---|
+| [**Samhita** ↗](https://rushirbhavsar.dev/projects/samhita) · Knowledge-Backend Pipeline | PDF→knowledge-base pipeline turning **5,941** textbook pages into a **72K-node / 130K-edge** graph with 53K BioLORD embeddings; ~100% figure/table extraction, Claude-Haiku enrichment via Anthropic Batches API. | `Python` `Pydantic v2` `Claude` `BioLORD` |
+| [**HybridFlow** ↗](https://rushirbhavsar.dev/projects/hybridflow) · Hybrid Retrieval RAG | Hybrid-retrieval RAG backend over a 93K-node Neo4j graph + Qdrant vectors; **success@5 0.90**, streaming Haiku→Sonnet pipeline at **14.7× throughput**, 8-gate quality suite. | `FastAPI` `Qdrant` `Neo4j` `Anthropic` |
+| [**sushrutalgs-bff** ↗](https://rushirbhavsar.dev/projects/sushrutalgs-bff) · Edge BFF | 33 KiB Cloudflare Worker fronting iOS + web; edge JWT auth at **p95 ~0.13ms**, atomic plan-aware quotas via Supabase RPC, fail-closed under load. | `TypeScript` `Hono` `Cloudflare Workers` |
+| [**sushrutalgs-ios** ↗](https://rushirbhavsar.dev/projects/sushrutalgs-ios) · Native iOS Client | iOS 26 SwiftUI RAG chat client (80 views, Swift 6 strict concurrency); SSE typewriter streaming, cross-device handoff, 3 auth flows; **20.8 MB** install. | `Swift 6` `SwiftUI` `Supabase` |
+| [**Yelp Recommendation Platform** ↗](https://rushirbhavsar.dev/projects/yelp-ml-platform) | PySpark ETL over the full **6.99M-review** dataset at ~460K rows/sec; Spark ALS recommender + sentiment classifier; **~23,000×** inference speedup via NumPy export. | `PySpark` `FastAPI` `MLflow` `Docker` |
+
+## Selected Publications
+
+| Title | Journal | Description |
+|---|---|---|
+| [**MACE-PINNs: A Multi-network Architecture for Coupled-Equations PINNs** ↗](https://keep.lib.asu.edu/items/201211) | *M.S. Thesis, ASU (2025)* | Parallel subnetworks with iterative residual constraints, Fourier-feature embeddings, and adaptive gradient-norm weighting; validated on Gray-Scott & Ginzburg-Landau 2D systems. |
+| [**Classification of Potentially Hazardous Asteroids Using Supervised Quantum ML** ↗](https://ieeexplore.ieee.org/abstract/document/10188662) | *IEEE Access, vol. 11 (2023)* | VQC + PegasosQSVC at **98.11%** accuracy / 92.69% F1 on 958K records. |
+| [**MetaHate: AI-Based Hate-Speech Detection for Secured Online Gaming in the Metaverse** ↗](https://onlinelibrary.wiley.com/doi/abs/10.1002/spy2.343) | *Security and Privacy, Wiley (2023)* | Gradient boosting at **86.01%** on a Hindi-English code-mixed dataset. |
 
 ---
 
-### GenAI Engineering Intern | Talin Labs Inc
-**May 2024 - Sep 2024** | Los Angeles, CA
-
-**Focus:** Generative AI • LLMs • RAG • AI Chatbots • MLOps
-
-**Impact Highlights:**
-- Increased system reliability by **42%** and data accessibility by **63%**
-- Boosted chatbot response accuracy by **37%** with transformer-based models
-- Achieved **86%** increase in data throughput with RAG techniques
-- 📦 Reduced model size by **29%** using 8-bit quantization
-
-**Tech:** LangChain • OpenAI API • Mistral • HuggingFace • Docker • Kubernetes • AWS • Azure • Sentence-BERT
-
----
-
-### 🧠 AI Research Intern | GIOSTAR.AI
-**Nov 2023 - May 2024** | San Francisco, CA
-
-🎯 **Focus:** Medical AI • EEG/ECG Signal Processing • Brain-Computer Interfaces
-
-**Impact Highlights:**
-- ⚡ Reduced EEG processing latency by **25%** for real-time applications
-- 🎯 Achieved **90%+ accuracy** in epilepsy detection with PyTorch models
-- 🚀 Cut inference latency by **30%** on AWS EC2 deployments
-- 📉 Reduced false positives by **18%** in artifact detection
-
-**Tech:** PyTorch • TensorFlow • AWS • Vision Transformers • U-Net • Jenkins
-
-## 🎓 Graduate Coursework
-
-[![Artificial Intelligence](https://img.shields.io/badge/Artificial_Intelligence-FF6B6B?style=for-the-badge&logo=brain&logoColor=white)](https://www.asu.edu/)
-[![Data Mining](https://img.shields.io/badge/Data_Mining-4ECDC4?style=for-the-badge&logo=databricks&logoColor=white)](https://www.asu.edu/)
-[![Statistical Machine Learning](https://img.shields.io/badge/Statistical_Machine_Learning-95E1D3?style=for-the-badge&logo=scipy&logoColor=white)](https://www.asu.edu/)
-[![Convex Optimization](https://img.shields.io/badge/Convex_Optimization-F38181?style=for-the-badge&logo=wolframmathematica&logoColor=white)](https://www.asu.edu/)
-
-## 📊 GitHub Stats
-
-<p align="center">
-  <a href="https://github.com/rushirb2001">
-    <img height="180em" src="https://github-readme-stats.vercel.app/api?username=rushirb2001&show_icons=true&theme=radical"/>
-    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=rushirb2001&layout=compact&langs_count=8&theme=radical"/>
-  </a>
-</p>
-
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=rushirb2001&label=Profile%20views&color=0e75b6&style=flat" alt="rushirb2001" />
-</p>
-
----
-*Graduate Student @ ASU | Scientific Developer @ Cadence | Specializing in AI/ML, Protein Modeling & CUDA Optimization*
+<p align="center"><i>ML Researcher @ ASU · ex-Cadence/OpenEye, Talin Labs · Physics-Informed ML, GenAI & High-Performance Computing</i></p>
