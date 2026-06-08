@@ -4,7 +4,7 @@
 
 <table align="center">
   <tr>
-    <td align="center" valign="middle">
+    <td rowspan="2" align="center" valign="middle">
       <a href="https://www.linkedin.com/in/rushir-bhavsar/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
       <br/><br/>
       <a href="mailto:rushirbhavsar@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
@@ -15,7 +15,9 @@
     </td>
     <td valign="middle"><img height="195em" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=rushirb2001&theme=tokyonight" alt="GitHub Stats" /></td>
     <td valign="middle"><img height="195em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=rushirb2001&theme=tokyonight" alt="Top Languages" /></td>
-    <td valign="middle"><img height="195em" src="https://github-readme-streak-stats.herokuapp.com/?user=rushirb2001&theme=tokyonight&hide_border=true" alt="GitHub Streak" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center" valign="middle"><img src="https://github-readme-streak-stats.herokuapp.com/?user=rushirb2001&theme=tokyonight&hide_border=true" alt="GitHub Streak" /></td>
   </tr>
 </table>
 
