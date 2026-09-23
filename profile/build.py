@@ -268,31 +268,36 @@ def link(theme, slot, entry):
     return c.svg(f"{label}: {value}")
 
 
+# Card widths fit GitHub's ~848px profile README column: two cards side by side in
+# a table (13px cell padding each side), with the commit graph spanning both.
+CARD_W, WIDE_W = 390, 806
+
+
 def year_card(theme, s):
-    c = Canvas(320, 190, theme)
+    c = Canvas(CARD_W, 190, theme)
     c.panel()
     c.eyebrow(22, 20, "The last 12 months")
     stats = [(f'{s["total"]:,}', "contributions"), (f'{s["commits"]:,}', "commits"),
              (f'{s["prs"]:,}', "pull requests"), (f'{s["active"]}', "active days")]
     for i, (n, lab) in enumerate(stats):
-        x, y = 22 + (i % 2) * 90, 84 + (i // 2) * 54
-        c.label(x, y, n, font="GS", size=24, fill="ink", spacing=-0.5, anim="up", delay=0.2 + i * 0.08)
+        x, y = 22 + (i % 2) * 112, 86 + (i // 2) * 54
+        c.label(x, y, n, font="GS", size=26, fill="ink", spacing=-0.5, anim="up", delay=0.2 + i * 0.08)
         c.label(x, y + 16, lab, size=9.5, fill="muted", anim="fade", delay=0.3 + i * 0.08)
     # Weekday rhythm: when the work actually happens.
     names, vals = "MTWTFSS", s["weekday"]
-    peak, base, ph = max(vals) or 1, 152, 80
-    c.label(206, 58, "by weekday", size=9.5, fill="muted", anim="fade", delay=0.2)
+    peak, base, ph, bx = max(vals) or 1, 152, 80, 252
+    c.label(bx, 58, "by weekday", size=9.5, fill="muted", anim="fade", delay=0.2)
     for i, v in enumerate(vals):
         h = max(2, v / peak * ph)
-        x = 206 + i * 13.5
-        c.rect(x, base - h, 9, h, "accent", rx=1.5, opacity=1 if v == peak else 0.45,
+        x = bx + i * 17
+        c.rect(x, base - h, 11, h, "accent", rx=1.5, opacity=1 if v == peak else 0.45,
                anim="gy", delay=0.3 + i * 0.05)
-        c.label(x + 4.5, base + 15, names[i], size=9, fill="faint", anchor="middle")
+        c.label(x + 5.5, base + 15, names[i], size=9, fill="faint", anchor="middle")
     return c.svg(f'{s["total"]:,} contributions in the last 12 months')
 
 
 def languages_card(theme, s):
-    c = Canvas(320, 190, theme)
+    c = Canvas(CARD_W, 190, theme)
     c.panel()
     c.eyebrow(22, 20, "Languages, by commits")
     langs = s["langs"]
@@ -301,28 +306,36 @@ def languages_card(theme, s):
     rest = total - sum(v for _, v in top)
     rows = top + ([("Other", rest)] if rest / total >= 0.01 else [])
     opac = [1, 0.72, 0.5, 0.34, 0.22, 0.12]
-    x, bar_w = 22.0, 276
+    x, bar_w = 22.0, CARD_W - 44
     for i, ((name, v), o) in enumerate(zip(rows, opac)):
         w = v / total * bar_w
         c.rect(x, 58, max(w - 2, 1), 7, "accent", rx=2, opacity=o, anim="gx", delay=0.2 + i * 0.12)
         x += w
+    col_w = (CARD_W - 44) / 2
     for i, ((name, v), o) in enumerate(zip(rows, opac)):
         col, row = i // 3, i % 3
-        lx, ly = 22 + col * 146, 96 + row * 24
+        lx, ly = 22 + col * col_w, 96 + row * 24
         d = 0.3 + i * 0.07
         c.rect(lx, ly - 8, 8, 8, "accent", rx=2, opacity=o, anim="pop", delay=d)
-        c.label(lx + 14, ly, name, font="GS", size=12, fill="ink", anim="up", delay=d)
-        c.label(lx + 130, ly, f"{v / total * 100:.0f}%", size=10, fill="muted", anchor="end", anim="fade", delay=d)
+        c.label(lx + 14, ly, name, font="GS", size=12.5, fill="ink", anim="up", delay=d)
+        c.label(lx + col_w - 22, ly, f"{v / total * 100:.0f}%", size=10, fill="muted", anchor="end",
+                anim="fade", delay=d)
     c.label(22, 174, f'weighted by commits · {s["lang_repos"]} public repos', size=9, fill="faint",
             anim="fade", delay=0.7)
     return c.svg("Languages by commits")
 
 
 def commits_card(theme, s):
-    c = Canvas(680, 180, theme)
+    days, greens = s["days"], THEMES[theme]["green"]
+    first = date.fromisoformat(days[0]["date"])
+    offset = timedelta(days=first.isoweekday() % 7)
+    n_cols = (date.fromisoformat(days[-1]["date"]) - first + offset).days // 7 + 1
+    step = (WIDE_W - 44) / n_cols
+    cell, gx, gy = step * 0.8, 22, 74
+
+    c = Canvas(WIDE_W, round(gy + 7 * step + 8 + cell + 18), theme)
     c.panel()
     c.eyebrow(22, 20, "Commit graph")
-    days, greens = s["days"], THEMES[theme]["green"]
     nonzero = sorted(d["contributionCount"] for d in days if d["contributionCount"])
     # Quartile buckets, the same scheme GitHub uses for its own graph.
     qs = [nonzero[int(len(nonzero) * q)] for q in (0.25, 0.5, 0.75)] if nonzero else [1, 2, 3]
@@ -330,34 +343,33 @@ def commits_card(theme, s):
     def level(n):
         return 0 if n == 0 else 1 + sum(n > q for q in qs)
 
-    cell, gap, gx, gy = 9.5, 2.3, 22, 70
-    first = date.fromisoformat(days[0]["date"])
     col, last_month = 0, None
     for d in days:
         day = date.fromisoformat(d["date"])
-        col = (day - first + timedelta(days=first.isoweekday() % 7)).days // 7
+        col = (day - first + offset).days // 7
         row = d["weekday"]
         # Cells cascade in diagonally, left to right, then hold.
-        c.rect(gx + col * (cell + gap), gy + row * (cell + gap), cell, cell,
+        c.rect(gx + col * step, gy + row * step, cell, cell,
                greens[level(d["contributionCount"])], rx=2.5, anim="pop",
                delay=0.2 + col * 0.014 + row * 0.03)
         if day.day <= 7 and row == 0 and day.month != last_month:
-            c.label(gx + col * (cell + gap), gy - 8, day.strftime("%b"), size=9, fill="faint",
+            c.label(gx + col * step, gy - 8, day.strftime("%b"), size=9.5, fill="faint",
                     anim="fade", delay=0.2 + col * 0.014)
             last_month = day.month
-    grid_right = gx + (col + 1) * (cell + gap)
+    grid_right = gx + col * step + cell
     done = 0.2 + col * 0.014 + 0.3
 
     # Footer: total, refresh stamp, legend.
-    ly = gy + 7 * (cell + gap) + 8
+    cell_gap = step - cell
+    ly = gy + 7 * step + 8
     built = s["built"].strftime("%-d %b %Y")
-    c.label(gx, ly + 8.5, f'{s["total"]:,} contributions in the last year · refreshed {built}',
+    c.label(gx, ly + cell * 0.8, f'{s["total"]:,} contributions in the last year · refreshed {built}',
             size=9, fill="muted", anim="fade", delay=done)
-    lx = grid_right - 5 * (cell + gap) - measure("GSC", "more", 9) - 6
-    c.label(lx - 6, ly + 8.5, "less", size=9, fill="faint", anchor="end", anim="fade", delay=done)
+    lx = grid_right - 5 * step + cell_gap - measure("GSC", "more", 9) - 6
+    c.label(lx - 6, ly + cell * 0.8, "less", size=9, fill="faint", anchor="end", anim="fade", delay=done)
     for i, g in enumerate(greens):
-        c.rect(lx + i * (cell + gap), ly, cell, cell, g, rx=2.5, anim="pop", delay=done + i * 0.05)
-    c.label(grid_right, ly + 8.5, "more", size=9, fill="faint", anchor="end", anim="fade", delay=done)
+        c.rect(lx + i * step, ly, cell, cell, g, rx=2.5, anim="pop", delay=done + i * 0.05)
+    c.label(grid_right, ly + cell * 0.8, "more", size=9, fill="faint", anchor="end", anim="fade", delay=done)
 
     # Streaks sit in the header row, right-aligned against the grid.
     x = grid_right
@@ -392,7 +404,10 @@ def main():
             **{f"link-{i + 1}": link(theme, i, e) for i, e in enumerate(CONFIG["links"])},
         }
         for name, svg in files.items():
-            (out / f"{name}-{theme}.svg").write_text(svg)
+            # Write-then-rename so a live preview never sees a missing or half-written file.
+            tmp = out / f".{name}-{theme}.svg.tmp"
+            tmp.write_text(svg)
+            os.replace(tmp, out / f"{name}-{theme}.svg")
 
     print(f"built {len(list(out.glob('*.svg')))} svgs · {s['total']:,} contributions · "
           f"streak {s['current']}/{s['longest']} · {s['built']:%Y-%m-%d %H:%M} UTC")
