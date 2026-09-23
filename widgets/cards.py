@@ -11,6 +11,7 @@ from datetime import date, datetime, timedelta
 from PIL import Image
 
 from .canvas import CARD_W, THEMES, WIDE_W, Canvas, date_range, fit, measure, wrap
+from .errors import BadRequest, scrub
 from . import github
 
 # ---------------------------------------------------------------- status
@@ -33,7 +34,7 @@ def status_key(value):
     value = (value or "auto").strip().lower()
     value = STATUS_ALIASES.get(value, value)
     if value not in STATUSES and value not in ("auto", "none"):
-        raise ValueError(f"unknown status '{value}'")
+        raise BadRequest(f"unknown status '{value}'")
     return value
 
 
@@ -367,7 +368,7 @@ def fetch_image(url, crop, width):
     """Fetch a product screenshot from an allowed host; return (JPEG data URI, size) or None."""
     parts = urllib.parse.urlsplit(url)
     if parts.scheme != "https" or (parts.hostname or "").lower() not in image_hosts():
-        raise ValueError("image host is not allowed")
+        raise BadRequest("image host is not allowed")
     try:
         return _fetch_image(url, crop, width)
     except _ImageUnavailable:
@@ -473,6 +474,7 @@ def link(theme, label, value, icon="link-external", hue="blue"):
 
 
 def error(theme, message):
+    message = scrub(message)  # defence in depth: no credential-shaped text on a public card
     c = Canvas(CARD_W, 72, theme)
     c.panel()
     c.icon("issue-opened", 24, 18, 18, "red", anim=None)

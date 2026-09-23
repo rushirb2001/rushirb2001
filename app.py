@@ -17,13 +17,14 @@ from starlette.routing import Route
 
 from widgets import cards, github
 from widgets.canvas import ICONS, MODE, THEMES, font_files
+from widgets.errors import BadRequest
 
 log = logging.getLogger("widgets")
 
 # Data widgets refresh every few hours at the edge; pure-content ones rarely change.
 LIVE = "public, max-age=1800, s-maxage=14400, stale-while-revalidate=86400"
 STATIC = "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800"
-FAILED = "public, max-age=60, s-maxage=60"
+FAILED = "no-store"  # errors are never cached, at the edge or by GitHub's image proxy
 SECURITY = {
     "Content-Security-Policy": "default-src 'none'; img-src data:; style-src 'unsafe-inline'; font-src data:",
     "X-Content-Type-Options": "nosniff",
@@ -34,7 +35,7 @@ HUES = ("blue", "green", "purple", "amber", "orange", "red", "accent", "muted")
 
 
 class Params:
-    """Validated access to the query string. Anything malformed raises ValueError."""
+    """Validated access to the query string. Anything malformed raises BadRequest."""
 
     def __init__(self, query):
         self.q = query
@@ -45,7 +46,7 @@ class Params:
     def required(self, key, limit=160):
         value = self.text(key, limit=limit)
         if not value:
-            raise ValueError(f"missing '{key}'")
+            raise BadRequest(f"missing '{key}'")
         return value
 
     def items(self, key, sep=",", limit=12):
@@ -64,14 +65,14 @@ class Params:
     def choice(self, key, options, default):
         value = self.text(key, default).lower()
         if value not in options:
-            raise ValueError(f"'{key}' must be one of: {', '.join(options)}")
+            raise BadRequest(f"'{key}' must be one of: {', '.join(options)}")
         return value
 
     def number(self, key, default, low, high):
         try:
             value = float(self.q.get(key, default))
         except ValueError:
-            raise ValueError(f"'{key}' must be a number") from None
+            raise BadRequest(f"'{key}' must be a number") from None
         return min(max(value, low), high)
 
     def user(self):
@@ -103,7 +104,7 @@ def w_repos(q, theme):
     names = q.items("repos")
     repos = github.repositories(q.user(), names or None, limit=int(q.number("count", 6, 1, 12)))
     if not repos:
-        raise ValueError("no public repositories to show")
+        raise BadRequest("no public repositories to show")
     statuses = {name: "coming-soon" for name in q.items("soon")}
     statuses.update({k: cards.status_key(v) for k, v in q.pairs("status").items()})
     options = {"statuses": statuses, "descriptions": q.pairs("describe", limit=240)}
@@ -140,7 +141,7 @@ def w_product(q, theme):
         if not sep:
             icon, text = "arrow-right", raw
         if icon not in ICONS:
-            raise ValueError(f"unknown icon '{icon}'")
+            raise BadRequest(f"unknown icon '{icon}'")
         features.append((icon, text.strip()[:90]))
     crop = [q.number(f"crop_{side}", default, 0, 1) for side, default in
             (("left", 0), ("top", 0), ("right", 1), ("bottom", 1))]
@@ -183,12 +184,14 @@ def render(request):
             raise LookupError(f"unknown widget '{request.path_params['widget']}'")
         renderer, policy, _ = spec
         svg, failed = renderer(q, theme), False
-    except (ValueError, PermissionError, LookupError, github.NotFound) as exc:
+    # Only messages we wrote ourselves are shown; any other exception gets a fixed text,
+    # since library exception messages can contain request details such as headers.
+    except (BadRequest, github.NotFound, PermissionError, LookupError) as exc:
         svg, policy, failed = cards.error(theme, str(exc)), FAILED, True
     except github.Upstream:
         svg, policy, failed = cards.error(theme, "GitHub is unavailable right now, try again shortly"), FAILED, True
-    except Exception:
-        log.exception("render failed: %s", request.url.path)
+    except Exception as exc:
+        log.error("render failed: %s (%s)", request.url.path, type(exc).__name__)
         svg, policy, failed = cards.error(theme, "unexpected error"), FAILED, True
     finally:
         MODE.reset(mode)

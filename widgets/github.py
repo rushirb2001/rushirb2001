@@ -16,6 +16,8 @@ import urllib.request
 from collections import defaultdict
 from datetime import date, datetime, timedelta, timezone
 
+from .errors import BadRequest
+
 USERNAME = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}$")
 REPO_NAME = re.compile(r"^[A-Za-z0-9._-]{1,100}$")
 
@@ -40,22 +42,25 @@ def token():
     global _token
     with _token_lock:
         if _token is None:
-            _token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+            # Stripped: a trailing newline from `... | vercel env add` makes an invalid header.
+            _token = (os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or "").strip()
             if not _token:  # local development: fall back to the gh CLI login
                 _token = subprocess.run(["gh", "auth", "token"], capture_output=True, text=True).stdout.strip()
         return _token
 
 
 def gql(query, **variables):
-    body = json.dumps({"query": query, "variables": variables}).encode()
-    req = urllib.request.Request("https://api.github.com/graphql", data=body, headers={
-        "Authorization": f"bearer {token()}", "Content-Type": "application/json",
-        "User-Agent": "rushirb2001-widgets"})
+    # Every failure below becomes a bare Upstream: exception text can carry the
+    # Authorization header, and nothing from this function may reach a response.
     try:
+        body = json.dumps({"query": query, "variables": variables}).encode()
+        req = urllib.request.Request("https://api.github.com/graphql", data=body, headers={
+            "Authorization": f"bearer {token()}", "Content-Type": "application/json",
+            "User-Agent": "rushirb2001-widgets"})
         with urllib.request.urlopen(req, timeout=20) as r:
             payload = json.load(r)
-    except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
-        raise Upstream(f"GitHub request failed: {type(exc).__name__}") from None
+    except Exception:
+        raise Upstream("GitHub request failed") from None
     errors = payload.get("errors") or []
     if any(e.get("type") == "NOT_FOUND" for e in errors):
         raise NotFound("not found")
@@ -84,7 +89,7 @@ def cached(key, load):
 
 def check_user(username):
     if not USERNAME.match(username or ""):
-        raise ValueError("invalid username")
+        raise BadRequest("invalid username")
     allowed = {u.strip().lower() for u in os.environ.get("ALLOWED_USERS", "").split(",") if u.strip()}
     if allowed and username.lower() not in allowed:
         raise PermissionError("this widget server only renders for approved users")
@@ -92,7 +97,7 @@ def check_user(username):
 
 def check_repo(name):
     if not REPO_NAME.match(name or ""):
-        raise ValueError("invalid repository name")
+        raise BadRequest("invalid repository name")
 
 
 # ---------------------------------------------------------------- profile

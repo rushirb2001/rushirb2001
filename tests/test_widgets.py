@@ -194,3 +194,33 @@ def test_streaks():
 def test_no_font_size_attribute_is_ever_missing():
     svg = client.get("/api/hero?name=X").text
     assert not re.search(r"<text(?![^>]*font-size)", svg)
+
+
+# ---------------------------------------------------------------- credential safety
+
+REAL_GQL = github.gql
+
+
+def test_token_never_reaches_a_response(monkeypatch):
+    """Regression: a token with a trailing newline made urllib raise with the header in its message."""
+    monkeypatch.setattr(github, "_token", "gho_TESTSECRET0123456789\n")
+    monkeypatch.setattr(github, "gql", REAL_GQL)
+    monkeypatch.setattr(github, "profile", lambda u: github._fetch_profile(u))
+    r = client.get("/api/stats?username=u")
+    assert "TESTSECRET" not in r.text and "gho_" not in r.text and "bearer" not in r.text.lower()
+    assert r.headers.get("X-Widget-Error") == "1" and r.headers["cache-control"] == "no-store"
+
+
+def test_unexpected_errors_show_fixed_text(monkeypatch):
+    def boom(u):
+        raise ValueError("Invalid header value b'bearer gho_LEAKED'")
+    monkeypatch.setattr(github, "profile", boom)
+    r = client.get("/api/stats?username=u")
+    assert "LEAKED" not in r.text and "unexpected error" in r.text
+
+
+def test_scrub():
+    from widgets.errors import scrub
+    for secret in ["gho_abc123", "ghp_XYZ", "github_pat_11AB_cd", "Bearer abc.def", "token abc"]:
+        cleaned = scrub(f"x {secret} y")
+        assert secret not in cleaned and "[redacted]" in cleaned
