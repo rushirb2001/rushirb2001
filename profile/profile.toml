@@ -1,6 +1,6 @@
-# The single source for every image on the profile README.
-# Edit this file and push; the profile workflow re-renders all figures.
-# README.md only points at the rendered images, so it never needs editing.
+# The single source for the profile README.
+# build.py renders every image and the README markdown itself from this file plus
+# live GitHub data. Edit here and push; never edit README.md by hand.
 
 login = "rushirb2001"
 
@@ -10,19 +10,94 @@ name = "Rushir Bhavsar"
 line = "RAG, physics-informed neural networks, distributed ML pipelines. Previously Cadence."
 principles = ["One core, many surfaces", "Software should describe itself", "Measure before you claim"]
 
-# Rendered in order into the link-1, link-2, link-3 slots in README.md.
-[[links]]
-label = "LinkedIn"
-value = "in/rushir-bhavsar"
-
-[[links]]
-label = "Email"
-value = "rushirbhavsar@gmail.com"
-
-[[links]]
-label = "Portfolio"
-value = "rushirbhavsar.dev"
-
 [languages]
 # Byte counts for these are dominated by notebook outputs and markup, not code written.
 skip = ["Jupyter Notebook", "HTML", "CSS"]
+
+# Project cards read name, description, language, stars and license live from GitHub.
+# Set `description` only to override a repo's own (empty or stale) description.
+[open_source]
+title = "Open source"
+caption = "Tools you can install"
+
+[[open_source.repos]]
+repo = "cohors"
+
+[[open_source.repos]]
+repo = "principia"
+
+[personal]
+title = "Personal projects"
+caption = "Research and side builds"
+
+[[personal.repos]]
+repo = "thesis-mace-pinn"
+
+[[personal.repos]]
+repo = "yelp-ml-platform"
+
+[[personal.repos]]
+repo = "med-query"
+description = "LangGraph query router for medical retrieval."
+
+[[personal.repos]]
+repo = "personal-website"
+description = "The portfolio at rushirbhavsar.dev. Next.js and TypeScript, self-hosted type."
+
+[startup]
+title = "Startup"
+caption = "One core, many surfaces"
+role = "Founding engineer, since Nov 2025"
+name = "sushrutalgs.ai"
+url = "https://sushrutalgs.ai"
+line = "Medical question-answering platform, built solo end to end."
+surfaces = ["Web", "iOS", "Android"]
+core = [
+  { label = "Edge gateway", caption = "Cloudflare Worker · Hono" },
+  { label = "Retrieval backend", caption = "FastAPI · Neo4j" },
+  { label = "Knowledge graph", caption = "5,941 pages → 71,621 nodes" },
+]
+
+[publications]
+title = "Publications"
+caption = "Peer-reviewed and thesis"
+
+[[publications.items]]
+title = "MACE-PINNs: A Multi-network Architecture for Coupled-Equations PINNs"
+venue = "M.S. Thesis, Arizona State University"
+year = 2025
+url = "https://keep.lib.asu.edu/items/201211"
+
+[[publications.items]]
+title = "Classification of Potentially Hazardous Asteroids Using Supervised Quantum ML"
+venue = "IEEE Access, vol. 11"
+year = 2023
+url = "https://ieeexplore.ieee.org/abstract/document/10188662"
+
+[[publications.items]]
+title = "MetaHate: AI-Based Hate-Speech Detection for Secured Online Gaming in the Metaverse"
+venue = "Security and Privacy, Wiley"
+year = 2023
+url = "https://onlinelibrary.wiley.com/doi/abs/10.1002/spy2.343"
+
+[links]
+title = "Links"
+caption = "Say hello"
+
+[[links.items]]
+label = "LinkedIn"
+value = "in/rushir-bhavsar"
+url = "https://www.linkedin.com/in/rushir-bhavsar/"
+icon = "person"
+
+[[links.items]]
+label = "Email"
+value = "rushirbhavsar@gmail.com"
+url = "mailto:rushirbhavsar@gmail.com"
+icon = "mail"
+
+[[links.items]]
+label = "Portfolio"
+value = "rushirbhavsar.dev"
+url = "https://rushirbhavsar.dev/"
+icon = "globe"
