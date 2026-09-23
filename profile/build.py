@@ -6,7 +6,11 @@ fonts embedded and a one-shot entrance animation, so nothing depends on a
 third-party image server. The markdown is generated too, so adding a project
 or a link means editing profile.toml, never README.md.
 
-    python profile/build.py [--out DIR] [--markdown FILE --img-base URL_OR_PATH]
+    python profile/build.py --markdown README.md          # after editing profile.toml
+    python profile/build.py --markdown SAMPLE.md --img-base profile/out --versioned   # local preview
+
+The workflow runs the same script on a schedule and deploys the images to
+GitHub Pages; it never commits. It only checks that README.md is current.
 """
 
 import argparse
@@ -751,7 +755,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(HERE / "out"), help="directory for the SVGs")
     ap.add_argument("--markdown", help="also write the README markdown to this file")
-    ap.add_argument("--img-base", default="profile/out", help="image path or URL prefix used in the markdown")
+    ap.add_argument("--img-base", default=CONFIG["images"],
+                    help="image URL prefix used in the markdown (default: the published Pages site)")
     ap.add_argument("--data", help="read a cached API response (JSON) instead of calling GitHub")
     ap.add_argument("--save-data", help="write the API response to this file")
     ap.add_argument("--versioned", action="store_true",

@@ -1,21 +1,22 @@
 name: profile
 
-# Re-renders every README image from profile/profile.toml plus live GitHub data,
-# then publishes them to the `output` branch. README.md only links to those files.
+# Re-renders every README image from profile/profile.toml plus live GitHub data and
+# deploys them to GitHub Pages. Deployments are not commits: this workflow never
+# writes to the repository. README.md only links to the deployed images.
 on:
   schedule:
     - cron: "0 */6 * * *"
   push:
     branches: [master]
-    paths: ["profile/**", ".github/workflows/profile.yml"]
+    paths: ["profile/**", "README.md", ".github/workflows/profile.yml"]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: profile
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   render:
@@ -32,16 +33,32 @@ jobs:
 
       - run: pip install -r profile/requirements.txt
 
-      - run: python profile/build.py --out dist
+      - name: Render images and the README they belong to
+        run: python profile/build.py --out dist --markdown "$RUNNER_TEMP/README.md"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: crazy-max/ghaction-github-pages@v5
+      - name: Check README.md matches profile.toml
+        run: |
+          if ! diff -u README.md "$RUNNER_TEMP/README.md"; then
+            echo "::warning::README.md is out of date with profile.toml. Run: python profile/build.py --markdown README.md"
+          fi
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
         with:
-          target_branch: output
-          build_dir: dist
-          keep_history: false
-          jekyll: false
-          commit_message: Render profile figures
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: dist
+
+  deploy:
+    needs: render
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

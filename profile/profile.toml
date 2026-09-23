@@ -3,6 +3,8 @@
 # live GitHub data. Edit here and push; never edit README.md by hand.
 
 login = "rushirb2001"
+# Where the workflow publishes the rendered images (GitHub Pages; deployments, not commits).
+images = "https://rushirb2001.github.io/rushirb2001"
 
 [hero]
 eyebrow = "Founding engineer · sushrutalgs.ai"
