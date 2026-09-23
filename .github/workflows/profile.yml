@@ -1,0 +1,47 @@
+name: profile
+
+# Re-renders every README image from profile/profile.toml plus live GitHub data,
+# then publishes them to the `output` branch. README.md only links to those files.
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  push:
+    branches: [master]
+    paths: ["profile/**", ".github/workflows/profile.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile
+  cancel-in-progress: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: profile/requirements.txt
+
+      - run: pip install -r profile/requirements.txt
+
+      - run: python profile/build.py --out dist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: crazy-max/ghaction-github-pages@v5
+        with:
+          target_branch: output
+          build_dir: dist
+          keep_history: false
+          jekyll: false
+          commit_message: Render profile figures
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

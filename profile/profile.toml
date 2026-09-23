@@ -1,0 +1,28 @@
+# The single source for every image on the profile README.
+# Edit this file and push; the profile workflow re-renders all figures.
+# README.md only points at the rendered images, so it never needs editing.
+
+login = "rushirb2001"
+
+[hero]
+eyebrow = "Founding engineer · sushrutalgs.ai"
+name = "Rushir Bhavsar"
+line = "RAG, physics-informed neural networks, distributed ML pipelines. Previously Cadence."
+principles = ["One core, many surfaces", "Software should describe itself", "Measure before you claim"]
+
+# Rendered in order into the link-1, link-2, link-3 slots in README.md.
+[[links]]
+label = "LinkedIn"
+value = "in/rushir-bhavsar"
+
+[[links]]
+label = "Email"
+value = "rushirbhavsar@gmail.com"
+
+[[links]]
+label = "Portfolio"
+value = "rushirbhavsar.dev"
+
+[languages]
+# Byte counts for these are dominated by notebook outputs and markup, not code written.
+skip = ["Jupyter Notebook", "HTML", "CSS"]
