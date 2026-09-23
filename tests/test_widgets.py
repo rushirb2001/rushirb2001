@@ -8,7 +8,7 @@ import pytest
 from starlette.testclient import TestClient
 
 import app as server
-from widgets import cards, github
+from widgets import cards, counter, github
 
 TODAY = date.today()
 
@@ -74,6 +74,7 @@ def fake_github(monkeypatch):
         raise cards._ImageUnavailable("offline")
 
     monkeypatch.setattr(cards, "_fetch_image", no_download)
+    monkeypatch.setattr(counter, "hit", lambda u: (github.check_user(u), 565)[1])
     monkeypatch.delenv("ALLOWED_USERS", raising=False)
 
 
@@ -226,3 +227,14 @@ def test_scrub():
     for secret in ["gho_abc123", "ghp_XYZ", "github_pat_11AB_cd", "Bearer abc.def", "token abc"]:
         cleaned = scrub(f"x {secret} y")
         assert secret not in cleaned and "[redacted]" in cleaned
+
+
+def test_views_are_never_cached():
+    r = client.get("/api/views?username=u&theme=dark")
+    assert "565" in text_of(r.text) and "no-store" in r.headers["cache-control"]
+    assert "X-Widget-Error" not in r.headers
+
+
+def test_views_respect_the_allowlist(monkeypatch):
+    monkeypatch.setenv("ALLOWED_USERS", "someone-else")
+    assert client.get("/api/views?username=u").headers.get("X-Widget-Error") == "1"

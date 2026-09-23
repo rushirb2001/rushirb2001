@@ -496,6 +496,16 @@ def link(theme, label, value, icon="link-external", hue="blue"):
     return c.svg(f"{label}: {value}")
 
 
+def views(theme, count):
+    """Profile views, in the same card as the links above it."""
+    c = Canvas(LINK_W, 64, theme)
+    c.panel()
+    c.icon("eye", 20, 22, 20, "purple")
+    c.text(52, 27, "Profile views", "eyebrow", spacing=1, anim="up", delay=0.05)
+    c.text(52, 48, f"{count:,}" if count is not None else "—", "value", size=17, anim="up", delay=0.1)
+    return c.svg(f"{count:,} profile views" if count is not None else "Profile views")
+
+
 def error(theme, message):
     message = scrub(message)  # defence in depth: no credential-shaped text on a public card
     c = Canvas(CARD_W, 72, theme)

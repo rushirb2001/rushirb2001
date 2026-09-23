@@ -15,7 +15,7 @@ from starlette.applications import Starlette
 from starlette.responses import JSONResponse, Response
 from starlette.routing import Route
 
-from widgets import cards, github
+from widgets import cards, counter, github
 from widgets.canvas import ICONS, MODE, THEMES, font_files
 from widgets.errors import BadRequest
 
@@ -25,6 +25,8 @@ log = logging.getLogger("widgets")
 LIVE = "public, max-age=1800, s-maxage=14400, stale-while-revalidate=86400"
 STATIC = "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800"
 FAILED = "no-store"  # errors are never cached, at the edge or by GitHub's image proxy
+# The view counter counts requests, so every profile visit must reach it: never cache.
+UNCACHED = "max-age=0, no-cache, no-store, must-revalidate"
 SECURITY = {
     "Content-Security-Policy": "default-src 'none'; img-src data:; style-src 'unsafe-inline'; font-src data:",
     "X-Content-Type-Options": "nosniff",
@@ -115,6 +117,10 @@ def w_repos(q, theme):
                           interval=q.number("interval", 4.5, 2, 12), **options)
 
 
+def w_views(q, theme):
+    return cards.views(theme, counter.hit(q.user()))
+
+
 def w_hero(q, theme):
     return cards.hero(theme, q.required("name", limit=60), eyebrow=q.text("eyebrow", limit=80),
                       line=q.text("line", limit=140), tags=tuple(q.items("tags", sep="|", limit=5)))
@@ -161,6 +167,7 @@ WIDGETS = {
     "repos": (w_repos, LIVE, ["username", "repos=a,b,c (default: top by stars)", "count=1..12",
                               "layout=carousel|list", "title (list only)", "soon=a,b", "status=repo:status",
                               "describe=repo:text", "install=repo:command", "interval=2..12"]),
+    "views": (w_views, UNCACHED, ["username"]),
     "hero": (w_hero, STATIC, ["name", "eyebrow", "tags=a|b|c (or line)"]),
     "section": (w_section, STATIC, ["title", "caption"]),
     "link": (w_link, STATIC, ["label", "value", "icon", "hue=" + "|".join(HUES)]),

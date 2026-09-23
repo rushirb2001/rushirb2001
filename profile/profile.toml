@@ -22,7 +22,7 @@ skip = ["Jupyter Notebook", "HTML", "CSS"]
 [open_source]
 title = "Open source"
 caption = "Tools you can install"
-layout = "wide"
+layout = "cards"
 
 [[open_source.repos]]
 repo = "cohors"
