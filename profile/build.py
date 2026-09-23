@@ -11,6 +11,7 @@ or a link means editing profile.toml, never README.md.
 
 import argparse
 import base64
+import hashlib
 import io
 import json
 import os
@@ -172,10 +173,6 @@ def summarize(data):
                     daily[day] = d["contributionCount"]
     current, longest = streaks(sorted(daily.items()))
 
-    by_weekday = defaultdict(int)
-    for d in recent:
-        by_weekday[d["weekday"]] += d["contributionCount"]
-
     # Languages weighted by the last year's commits, split by each repo's byte share.
     # Public repos only, so a local run and the CI run (default token) agree.
     skip = set(CONFIG["languages"]["skip"])
@@ -195,7 +192,6 @@ def summarize(data):
 
     return {
         "recent": recent,
-        "weekday": [by_weekday[i] for i in (1, 2, 3, 4, 5, 6, 0)],
         "joined": joined,
         "total": sum(y["contributionCalendar"]["totalContributions"] for y in years.values()),
         "commits": sum(y["totalCommitContributions"] for y in years.values()),
@@ -330,10 +326,11 @@ class Canvas:
                  f'fill="{self.color(fill)}"{op}{st}{self._motion(anim, delay)}/>')
 
     def icon(self, name, x, y, size, fill, *, anim="pop", delay=0):
-        paths = "".join(f'<path d="{d}"/>' for d in ICONS[name])
+        spec = ICONS[name]
+        paths = "".join(f'<path d="{d}"/>' for d in spec["paths"])
         # Outer group animates; inner group holds the placement transform, so they don't clash.
         self.add(f'<g{self._motion(anim, delay)}><g transform="translate({x:.1f} {y:.1f}) '
-                 f'scale({size / 16:.4f})" fill="{self.color(fill)}">{paths}</g></g>')
+                 f'scale({size / spec["box"]:.4f})" fill="{self.color(fill)}">{paths}</g></g>')
 
     def line(self, d, stroke, *, width=1.25, anim="draw", delay=0, arrow=False):
         marker = ' marker-end="url(#arrow)"' if arrow else ""
@@ -410,17 +407,8 @@ def stats_card(theme, s):
         c.label(44, y, label, font="GS", size=12.5, fill="ink", anim="up", delay=d)
         c.label(222, y, f"{value:,}", font="GS", size=13.5, weight=500, fill="ink", anchor="end",
                 anim="up", delay=d + 0.05)
-    # Weekday rhythm over the last year: when the work actually happens.
-    vals = s["weekday"]
-    peak, base, ph, bx = max(vals) or 1, 168, 92, 262
-    c.label(bx, 60, "by weekday", size=9.5, fill="muted", anim="fade", delay=0.2)
-    for i, v in enumerate(vals):
-        h = max(2, v / peak * ph)
-        x = bx + i * 17
-        top = v == peak
-        c.rect(x, base - h, 11, h, "amber" if top else "blue", rx=2, opacity=1 if top else 0.55,
-               anim="gy", delay=0.3 + i * 0.05)
-        c.label(x + 5.5, base + 15, "MTWTFSS"[i], size=9, fill="faint", anchor="middle")
+    # The GitHub mark as a filled disc, after the old stats card.
+    c.icon("mark-github", 256, 58, 112, "purple", delay=0.3)
     return c.svg(f'{s["stars"]} stars, {s["commits"]:,} commits, {s["prs"]} pull requests')
 
 
@@ -623,9 +611,15 @@ def link_card(theme, i, entry):
 
 # ---------------------------------------------------------------- markdown
 
+# Maps "name-theme" to the file actually written; filenames carry a content hash
+# when --versioned is set, so previews can never show a stale cached copy.
+FILENAMES = {}
+
+
 def picture(base, name, width, alt, href=None):
-    img = (f'<picture><source media="(prefers-color-scheme: dark)" srcset="{base}/{name}-dark.svg" />'
-           f'<img src="{base}/{name}-light.svg" width="{width}" alt={quoteattr(alt)} /></picture>')
+    dark, light = FILENAMES[f"{name}-dark"], FILENAMES[f"{name}-light"]
+    img = (f'<picture><source media="(prefers-color-scheme: dark)" srcset="{base}/{dark}" />'
+           f'<img src="{base}/{light}" width="{width}" alt={quoteattr(alt)} /></picture>')
     return f'<a href="{href}">{img}</a>' if href else img
 
 
@@ -708,6 +702,8 @@ def main():
     ap.add_argument("--img-base", default="profile/out", help="image path or URL prefix used in the markdown")
     ap.add_argument("--data", help="read a cached API response (JSON) instead of calling GitHub")
     ap.add_argument("--save-data", help="write the API response to this file")
+    ap.add_argument("--versioned", action="store_true",
+                    help="put a content hash in each filename (local previews; defeats image caching)")
     args = ap.parse_args()
 
     data = json.loads(Path(args.data).read_text()) if args.data else fetch()
@@ -720,9 +716,11 @@ def main():
     written = set()
     for theme in THEMES:
         for name, svg in render_all(theme, s).items():
-            path = out / f"{name}-{theme}.svg"
-            write(path, svg)
-            written.add(path.name)
+            key = f"{name}-{theme}"
+            digest = hashlib.sha1(svg.encode()).hexdigest()[:8]
+            FILENAMES[key] = f"{key}.{digest}.svg" if args.versioned else f"{key}.svg"
+            write(out / FILENAMES[key], svg)
+            written.add(FILENAMES[key])
     # Drop figures that are no longer produced (a removed project, a renamed card).
     for old in out.glob("*.svg"):
         if old.name not in written:
