@@ -25,6 +25,7 @@ from xml.sax.saxutils import escape, quoteattr
 
 from fontTools import subset
 from fontTools.ttLib import TTFont
+from PIL import Image
 
 HERE = Path(__file__).parent
 CONFIG = tomllib.loads((HERE / "profile.toml").read_text())
@@ -35,14 +36,14 @@ ICONS = json.loads((HERE / "icons.json").read_text())  # Octicons, MIT (see icon
 THEMES = {
     "light": {
         "bg": "#f4f1ec", "border": "rgba(26,26,26,0.14)", "ink": "#1a1a1a",
-        "muted": "rgba(26,26,26,0.62)", "faint": "rgba(26,26,26,0.40)", "accent": "#1f3a5f",
+        "muted": "rgba(26,26,26,0.74)", "faint": "rgba(26,26,26,0.60)", "accent": "#1f3a5f",
         "blue": "#0969da", "green": "#1a7f37", "purple": "#8250df",
         "amber": "#bf8700", "orange": "#bc4c00", "red": "#cf222e",
         "graph": ["rgba(26,26,26,0.07)", "#c3dabc", "#8cbd85", "#4f9a5a", "#2c6e3c"],
     },
     "dark": {
         "bg": "#151515", "border": "rgba(244,241,236,0.12)", "ink": "#f4f1ec",
-        "muted": "rgba(244,241,236,0.62)", "faint": "rgba(244,241,236,0.38)", "accent": "#a9bfdc",
+        "muted": "rgba(244,241,236,0.76)", "faint": "rgba(244,241,236,0.58)", "accent": "#a9bfdc",
         "blue": "#4493f8", "green": "#3fb950", "purple": "#a371f7",
         "amber": "#d29922", "orange": "#db6d28", "red": "#f85149",
         "graph": ["rgba(244,241,236,0.07)", "#1f3d28", "#2b603a", "#3f8b50", "#62b86f"],
@@ -51,6 +52,19 @@ THEMES = {
 
 # Widths fit GitHub's ~848px profile README column: two cards and a space per row.
 CARD_W, WIDE_W = 401, 806
+
+# One type scale for every figure. Nothing renders below 12px; monospace is kept
+# for the small uppercase headings only, since spaced mono is hard to read in runs.
+TYPE = {
+    "eyebrow": {"font": "GSC", "size": 12, "weight": 600, "spacing": 1.1, "upper": True, "fill": "accent"},
+    "heading": {"font": "GS", "size": 22, "weight": 500, "spacing": -0.3, "fill": "ink"},
+    "title": {"font": "GS", "size": 16, "weight": 500, "fill": "ink"},
+    "stat": {"font": "GS", "size": 30, "spacing": -0.5, "fill": "ink"},
+    "value": {"font": "GS", "size": 15, "weight": 500, "fill": "ink"},
+    "label": {"font": "GS", "size": 14, "fill": "ink"},
+    "body": {"font": "GS", "size": 13.5, "fill": "muted"},
+    "meta": {"font": "GS", "size": 12.5, "fill": "faint"},
+}
 
 
 # ---------------------------------------------------------------- data
@@ -293,7 +307,7 @@ class Canvas:
     def __init__(self, w, h, theme):
         self.w, self.h, self.t = w, h, THEMES[theme]
         self.parts, self.css = [], []
-        self.text = {"GS": "", "GSC": ""}
+        self.glyphs = {"GS": "", "GSC": ""}
 
     def add(self, s):
         self.parts.append(s)
@@ -311,12 +325,16 @@ class Canvas:
     def label(self, x, y, s, *, font="GSC", size=11, weight=400, fill="muted",
               anchor="start", spacing=0, upper=False, anim=None, delay=0):
         s = s.upper() if upper else s
-        self.text[font] += s
+        self.glyphs[font] += s
         fam = "'GS',sans-serif" if font == "GS" else "'GSC',monospace"
         ls = f' letter-spacing="{spacing}"' if spacing else ""
         self.add(f'<text x="{x:.1f}" y="{y:.1f}" font-family="{fam}" font-size="{size}" '
                  f'font-weight="{weight}" fill="{self.color(fill)}" text-anchor="{anchor}"{ls}'
                  f'{self._motion(anim, delay, "font-variant-numeric:tabular-nums;")}>{escape(s)}</text>')
+
+    def text(self, x, y, s, style, **overrides):
+        """Draw text in one of the TYPE styles, with per-call overrides."""
+        self.label(x, y, s, **{**TYPE[style], **overrides})
 
     def rect(self, x, y, w, h, fill, *, rx=0, opacity=None, stroke=None, anim=None, delay=0):
         # fill-opacity, not opacity: the entrance keyframes animate opacity and would override it.
@@ -342,10 +360,10 @@ class Canvas:
                              f'fill="{self.t["bg"]}" stroke="{self.t["border"]}"/>')
 
     def eyebrow(self, x, y, s):
-        self.label(x, y, s, size=10.5, fill="accent", spacing=1.6, upper=True, weight=500, anim="up")
+        self.text(x, y, s, "eyebrow", anim="up")
 
     def svg(self, title):
-        faces = "".join(font_face(f, s) for f, s in self.text.items() if s)
+        faces = "".join(font_face(f, s) for f, s in self.glyphs.items() if s)
         defs = (f'<defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" '
                 f'markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" '
                 f'fill="{self.t["faint"]}"/></marker></defs>')
@@ -371,61 +389,62 @@ def date_range(start, end, open_ended=False):
 
 def hero(theme):
     h = CONFIG["hero"]
-    c = Canvas(880, 140, theme)
+    c = Canvas(880, 150, theme)
     cx = c.w / 2
-    c.label(cx, 22, h["eyebrow"], size=11, fill="accent", spacing=2, upper=True, weight=500,
-            anchor="middle", anim="up")
-    c.label(cx, 76, h["name"], font="GS", size=50, fill="ink", anchor="middle", spacing=-1,
+    c.text(cx, 22, h["eyebrow"], "eyebrow", size=12.5, spacing=2, anchor="middle", anim="up")
+    c.label(cx, 80, h["name"], font="GS", size=52, fill="ink", anchor="middle", spacing=-1,
             anim="up", delay=0.12)
-    c.label(cx, 104, h["line"], font="GS", size=15, fill="muted", anchor="middle", anim="up", delay=0.28)
-    c.label(cx, 130, "   ·   ".join(h["principles"]), size=10.5, fill="faint", anchor="middle",
-            spacing=0.4, anim="fade", delay=0.48)
+    c.text(cx, 110, h["line"], "body", size=16, anchor="middle", anim="up", delay=0.28)
+    c.text(cx, 138, "   ·   ".join(h["principles"]), "meta", size=13.5, anchor="middle",
+           anim="fade", delay=0.48)
     return c.svg(f'{h["name"]} — {h["eyebrow"]}')
 
 
 def section(theme, key, count=None):
     s = CONFIG[key]
-    c = Canvas(WIDE_W, 44, theme)
-    c.label(4, 30, s["title"], font="GS", size=21, fill="ink", spacing=-0.3, anim="up")
+    c = Canvas(WIDE_W, 50, theme)
+    c.text(4, 34, s["title"], "heading", anim="up")
     right = s["caption"] + (f" · {count}" if count is not None else "")
-    c.label(WIDE_W - 4, 30, right, size=10.5, fill="muted", anchor="end", anim="fade", delay=0.15)
+    c.text(WIDE_W - 4, 34, right, "body", anchor="end", anim="fade", delay=0.15)
     return c.svg(s["title"])
 
 
+TOP_H = 214  # both top cards share a height so the row lines up
+
+
 def stats_card(theme, s):
-    c = Canvas(CARD_W, 200, theme)
+    c = Canvas(CARD_W, TOP_H, theme)
     c.panel()
-    c.eyebrow(22, 32, "GitHub stats")
+    c.eyebrow(24, 36, "GitHub stats")
     rows = [("star", "amber", "Total stars", s["stars"]),
             ("git-commit", "green", "Total commits", s["commits"]),
             ("git-pull-request", "purple", "Pull requests", s["prs"]),
             ("issue-opened", "orange", "Issues", s["issues"]),
             ("repo", "blue", "Contributed to", s["contributed"])]
     for i, (icon, hue, label, value) in enumerate(rows):
-        y, d = 66 + i * 27, 0.15 + i * 0.07
-        c.icon(icon, 22, y - 11, 14, hue, delay=d)
-        c.label(44, y, label, font="GS", size=12.5, fill="ink", anim="up", delay=d)
-        c.label(222, y, f"{value:,}", font="GS", size=13.5, weight=500, fill="ink", anchor="end",
-                anim="up", delay=d + 0.05)
+        y, d = 74 + i * 29, 0.15 + i * 0.07
+        c.icon(icon, 24, y - 13, 16, hue, delay=d)
+        c.text(50, y, label, "label", anim="up", delay=d)
+        c.text(236, y, f"{value:,}", "value", anchor="end", anim="up", delay=d + 0.05)
     # The GitHub mark as a filled disc, after the old stats card.
-    c.icon("mark-github", 256, 58, 112, "purple", delay=0.3)
+    c.icon("mark-github", 268, 64, 104, "purple", delay=0.3)
     return c.svg(f'{s["stars"]} stars, {s["commits"]:,} commits, {s["prs"]} pull requests')
 
 
 def languages_card(theme, s):
-    c = Canvas(CARD_W, 200, theme)
+    c = Canvas(CARD_W, TOP_H, theme)
     c.panel()
-    c.eyebrow(22, 32, "Top languages")
+    c.eyebrow(24, 36, "Top languages")
     langs = s["langs"]
     total = sum(v for _, v in langs) or 1
-    top = [(k, v) for k, v in langs[:5] if v / total >= 0.01]
+    top = [(k, v) for k, v in langs[:4] if v / total >= 0.01]
     rest = total - sum(v for _, v in top)
     rows = [(k, v, s["lang_colors"][k]) for k, v in top]
     if rest / total >= 0.01:
         rows.append(("Other", rest, c.t["faint"]))
 
     # Donut: each arc grows from where the previous one ends, one after another.
-    cx, cy, r, sw = 318, 112, 48, 15
+    cx, cy, r, sw = 318, 116, 50, 16
     circ = 2 * 3.14159265 * r
     start, arcs = 0.0, []
     for i, (name, v, color) in enumerate(rows):
@@ -439,16 +458,17 @@ def languages_card(theme, s):
         start += length
     # Rotate the group, not the arcs, so the arcs' own animation can't disturb the placement.
     c.add(f'<g transform="rotate(-90 {cx} {cy})">{"".join(arcs)}</g>')
-    c.label(cx, cy + 5, f"{rows[0][1] / total * 100:.0f}%" if rows else "", font="GS", size=16,
-            weight=500, fill="ink", anchor="middle", anim="fade", delay=0.6)
+    if rows:
+        c.text(cx, cy + 6, f"{rows[0][1] / total * 100:.0f}%", "value", size=18, anchor="middle",
+               anim="fade", delay=0.6)
 
     for i, (name, v, color) in enumerate(rows):
-        y, d = 66 + i * 22, 0.2 + i * 0.07
-        c.rect(22, y - 9, 9, 9, color, rx=2, anim="pop", delay=d)
-        c.label(38, y, name, font="GS", size=12.5, fill="ink", anim="up", delay=d)
-        c.label(222, y, f"{v / total * 100:.0f}%", size=10.5, fill="muted", anchor="end", anim="fade", delay=d)
-    c.label(22, 186, f'by commits · {s["lang_repos"]} public repos', size=9, fill="faint",
-            anim="fade", delay=0.7)
+        y, d = 74 + i * 26, 0.2 + i * 0.07
+        c.rect(24, y - 11, 11, 11, color, rx=2.5, anim="pop", delay=d)
+        c.text(44, y, name, "label", anim="up", delay=d)
+        c.text(236, y, f"{v / total * 100:.0f}%", "value", size=14, fill="muted", anchor="end",
+               anim="fade", delay=d)
+    c.text(24, TOP_H - 20, f'By commits · {s["lang_repos"]} public repos', "meta", anim="fade", delay=0.7)
     return c.svg("Top languages by commits")
 
 
@@ -457,29 +477,32 @@ def commits_card(theme, s):
     first = date.fromisoformat(days[0]["date"])
     offset = timedelta(days=first.isoweekday() % 7)
     n_cols = (date.fromisoformat(days[-1]["date"]) - first + offset).days // 7 + 1
-    step = (WIDE_W - 44) / n_cols
-    cell, gx, gy = step * 0.8, 22, 144
+    # Weekday labels take a gutter on the left, as on GitHub's own graph.
+    gutter, pad = 36, 24
+    gx, gy = pad + gutter, 176
+    step = (WIDE_W - gx - pad) / n_cols
+    cell = step * 0.8
+    footer_y = gy + 7 * step + 30
 
-    c = Canvas(WIDE_W, round(gy + 7 * step + 8 + cell + 20), theme)
+    c = Canvas(WIDE_W, round(footer_y + 24), theme)
     c.panel()
-    c.eyebrow(22, 32, "Commit graph")
+    c.eyebrow(pad, 36, "Commit graph")
 
     # Streak strip, after the old streak card: total, current (with flame), longest.
     cur, cur_start, cur_end = s["current"]
     best, best_start, best_end = s["longest"]
     blocks = [(f'{s["total"]:,}', "Total contributions", date_range(s["joined"], None, True), None),
-              (f"{cur}", "Current streak", date_range(cur_start, cur_end), "flame"),
-              (f"{best}", "Longest streak", date_range(best_start, best_end), "trophy")]
+              (f"{cur}", "Current streak (days)", date_range(cur_start, cur_end), "flame"),
+              (f"{best}", "Longest streak (days)", date_range(best_start, best_end), "trophy")]
     for i, (num, label, when, icon) in enumerate(blocks):
-        x, d = 22 + i * 262, 0.15 + i * 0.1
+        x, d = pad + i * 262, 0.15 + i * 0.1
+        nx = x
         if icon:
-            c.icon(icon, x, 56, 18, "orange" if icon == "flame" else "amber", delay=d)
-            nx = x + 26
-        else:
-            nx = x
-        c.label(nx, 74, num, font="GS", size=28, fill="ink", spacing=-0.5, anim="up", delay=d)
-        c.label(x, 96, label, size=10, fill="muted", anim="fade", delay=d + 0.05)
-        c.label(x, 111, when, size=9.5, fill="faint", anim="fade", delay=d + 0.1)
+            c.icon(icon, x, 62, 22, "orange" if icon == "flame" else "amber", delay=d)
+            nx = x + 30
+        c.text(nx, 84, num, "stat", anim="up", delay=d)
+        c.text(x, 108, label, "body", anim="fade", delay=d + 0.05)
+        c.text(x, 128, when, "meta", anim="fade", delay=d + 0.1)
 
     nonzero = sorted(d["contributionCount"] for d in days if d["contributionCount"])
     # Quartile buckets, the same scheme GitHub uses for its own graph.
@@ -488,6 +511,8 @@ def commits_card(theme, s):
     def level(n):
         return 0 if n == 0 else 1 + sum(n > q for q in qs)
 
+    for row, name in [(1, "Mon"), (3, "Wed"), (5, "Fri")]:
+        c.text(pad, gy + row * step + cell * 0.85, name, "meta", size=12, anim="fade", delay=0.3)
     col, last_month = 0, None
     for d in days:
         day = date.fromisoformat(d["date"])
@@ -497,115 +522,142 @@ def commits_card(theme, s):
         c.rect(gx + col * step, gy + row * step, cell, cell, greens[level(d["contributionCount"])],
                rx=2.5, anim="pop", delay=0.3 + col * 0.014 + row * 0.03)
         if day.day <= 7 and row == 0 and day.month != last_month:
-            c.label(gx + col * step, gy - 8, day.strftime("%b"), size=9.5, fill="faint",
-                    anim="fade", delay=0.3 + col * 0.014)
+            c.text(gx + col * step, gy - 10, day.strftime("%b"), "meta", size=12, anim="fade",
+                   delay=0.3 + col * 0.014)
             last_month = day.month
     grid_right = gx + col * step + cell
     done = 0.3 + col * 0.014 + 0.3
 
-    ly = gy + 7 * step + 8
-    c.label(gx, ly + cell * 0.8, f'last 12 months · refreshed {s["built"]:%-d %b %Y}',
-            size=9, fill="muted", anim="fade", delay=done)
-    lx = grid_right - 5 * step + (step - cell) - measure("GSC", "more", 9) - 6
-    c.label(lx - 6, ly + cell * 0.8, "less", size=9, fill="faint", anchor="end", anim="fade", delay=done)
+    c.text(pad, footer_y, f'Last 12 months · refreshed {s["built"]:%-d %b %Y}', "meta",
+           anim="fade", delay=done)
+    more_w = measure("GS", "More", 12.5)
+    lx = grid_right - more_w - 8 - 5 * step + (step - cell)
+    c.text(lx - 8, footer_y, "Less", "meta", anchor="end", anim="fade", delay=done)
     for i, g in enumerate(greens):
-        c.rect(lx + i * step, ly, cell, cell, g, rx=2.5, anim="pop", delay=done + i * 0.05)
-    c.label(grid_right, ly + cell * 0.8, "more", size=9, fill="faint", anchor="end", anim="fade", delay=done)
+        c.rect(lx + i * step, footer_y - cell + 1, cell, cell, g, rx=2.5, anim="pop", delay=done + i * 0.05)
+    c.text(grid_right, footer_y, "More", "meta", anchor="end", anim="fade", delay=done)
     return c.svg(f'{s["total"]:,} contributions, current streak {cur} days, longest {best} days')
 
 
 def project_card(theme, entry, repo):
     """A pinned-repo card: the repo describes itself unless profile.toml overrides it."""
-    c = Canvas(CARD_W, 128, theme)
+    c = Canvas(CARD_W, 140, theme)
     c.panel()
     name = entry["repo"]
     desc = entry.get("description") or (repo or {}).get("description") or ""
-    c.icon("repo", 22, 21, 14, "muted", delay=0.05)
-    c.label(44, 33, fit("GS", name, 15.5, 270), font="GS", size=15.5, weight=500, fill="ink", anim="up", delay=0.08)
+    c.icon("repo", 24, 22, 16, "muted", delay=0.05)
+    c.text(50, 36, fit("GS", name, 16, 260), "title", anim="up", delay=0.08)
     license_id = ((repo or {}).get("licenseInfo") or {}).get("spdxId")
     if license_id and license_id != "NOASSERTION":
-        c.label(CARD_W - 22, 32, license_id, size=9.5, fill="faint", anchor="end", anim="fade", delay=0.2)
-    for i, line in enumerate(wrap("GS", desc, 12.5, CARD_W - 44, 2)):
-        c.label(22, 60 + i * 18, line, font="GS", size=12.5, fill="muted", anim="up", delay=0.16 + i * 0.06)
+        c.text(CARD_W - 24, 35, license_id, "meta", anchor="end", anim="fade", delay=0.2)
+    for i, line in enumerate(wrap("GS", desc, 13.5, CARD_W - 48, 2)):
+        c.text(24, 66 + i * 20, line, "body", anim="up", delay=0.16 + i * 0.06)
 
     if repo:
-        y, x = 108, 22
+        y, x = 118, 24
         lang = repo.get("primaryLanguage")
         if lang:
-            c.add(f'<circle cx="{x + 5}" cy="{y - 4}" r="5" fill="{lang["color"] or "#8b949e"}" '
+            c.add(f'<circle cx="{x + 6}" cy="{y - 4.5}" r="6" fill="{lang["color"] or "#8b949e"}" '
                   f'class="pop" style="animation-delay:.3s"/>')
-            c.label(x + 15, y, lang["name"], size=10.5, fill="muted", anim="fade", delay=0.3)
-            x += 26 + measure("GSC", lang["name"], 10.5)
+            c.text(x + 18, y, lang["name"], "meta", fill="muted", anim="fade", delay=0.3)
+            x += 34 + measure("GS", lang["name"], 12.5)
         for icon, hue, value in [("star", "amber", repo["stargazerCount"]),
                                  ("repo-forked", "muted", repo["forkCount"])]:
-            c.icon(icon, x, y - 11, 13, hue, delay=0.35)
-            c.label(x + 18, y, f"{value:,}", size=10.5, fill="muted", anim="fade", delay=0.35)
-            x += 30 + measure("GSC", f"{value:,}", 10.5)
+            c.icon(icon, x, y - 12, 14, hue, delay=0.35)
+            c.text(x + 20, y, f"{value:,}", "meta", fill="muted", anim="fade", delay=0.35)
+            x += 36 + measure("GS", f"{value:,}", 12.5)
         pushed = datetime.fromisoformat(repo["pushedAt"])
-        c.label(CARD_W - 22, y, f"updated {pushed:%b %Y}", size=9.5, fill="faint", anchor="end",
-                anim="fade", delay=0.4)
+        c.text(CARD_W - 24, y, f"Updated {pushed:%b %Y}", "meta", anchor="end", anim="fade", delay=0.4)
     return c.svg(f"{name}: {desc}")
 
 
+def screenshot(url, crop, width):
+    """Fetch the product screenshot from the live site, crop and downscale it, as a JPEG data URI."""
+    if url in _shot_cache:
+        return _shot_cache[url]
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "profile-build"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            img = Image.open(io.BytesIO(r.read())).convert("RGB")
+    except Exception as exc:  # the card still renders, just without the picture
+        print(f"warning: screenshot unavailable ({exc})")
+        _shot_cache[url] = None
+        return None
+    w, h = img.size
+    img = img.crop((round(crop[0] * w), round(crop[1] * h), round(crop[2] * w), round(crop[3] * h)))
+    img.thumbnail((width * 2, width * 2), Image.LANCZOS)  # 2x for sharp rendering on retina screens
+    buf = io.BytesIO()
+    img.save(buf, "JPEG", quality=82, optimize=True, progressive=True)
+    _shot_cache[url] = (f"data:image/jpeg;base64,{base64.b64encode(buf.getvalue()).decode()}", img.size)
+    return _shot_cache[url]
+
+
+_shot_cache = {}
+
+
 def startup_card(theme):
+    """The product as its users see it: what it is, who it's for, what it does."""
     st = CONFIG["startup"]
-    c = Canvas(WIDE_W, 214, theme)
+    H, pad, text_w = 300, 24, 392
+    c = Canvas(WIDE_W, H, theme)
     c.panel()
-    c.eyebrow(22, 32, st["role"])
-    c.label(22, 66, st["name"], font="GS", size=24, weight=500, fill="ink", spacing=-0.4, anim="up", delay=0.1)
-    c.label(22 + measure("GS", st["name"], 24) + 14, 65, st["line"], font="GS", size=13, fill="muted",
-            anim="up", delay=0.2)
+    c.eyebrow(pad, 38, st["role"])
+    c.label(pad, 80, st["name"], font="GS", size=30, weight=500, fill="ink", spacing=-0.5, anim="up", delay=0.1)
+    c.text(pad, 110, st["tagline"], "title", size=17, weight=400, anim="up", delay=0.18)
+    y = 136
+    for i, line in enumerate(wrap("GS", st["audience"], 13.5, text_w, 2)):
+        c.text(pad, y, line, "body", anim="up", delay=0.26)
+        y += 20
 
-    # One core, many surfaces: each client funnels into a single gateway.
-    hues = ["blue", "purple", "green", "orange", "red"]
-    ys = [112 + i * 32 for i in range(len(st["surfaces"]))]
-    mid = (ys[0] + ys[-1]) / 2 + 12
-    for i, (name, y) in enumerate(zip(st["surfaces"], ys)):
-        d = 0.3 + i * 0.08
-        c.rect(22, y, 96, 24, "bg", rx=12, stroke=hues[i % len(hues)], anim="pop", delay=d)
-        c.rect(34, y + 9, 6, 6, hues[i % len(hues)], rx=3, anim="pop", delay=d)
-        c.label(76, y + 16.5, name, font="GS", size=12, fill="ink", anchor="middle", anim="fade", delay=d)
-        c.line(f"M118 {y + 12} C 160 {y + 12}, 160 {mid}, 198 {mid}", "faint", anim="draw", delay=d + 0.15)
+    y += 18
+    hues = ["purple", "blue", "green", "amber"]
+    for i, feat in enumerate(st["features"]):
+        d = 0.35 + i * 0.08
+        lines = wrap("GS", feat["text"], 13.5, text_w - 28, 2)
+        c.icon(feat["icon"], pad, y - 13, 16, hues[i % len(hues)], delay=d)
+        for j, line in enumerate(lines):
+            c.text(pad + 28, y + j * 19, line, "label", size=13.5, anim="up", delay=d)
+        y += 19 * len(lines) + 10
 
-    # Core pills size to their text, then share the remaining width as equal gaps.
-    widths = [max(measure("GS", n["label"], 13), measure("GSC", n["caption"], 9.5)) + 28 for n in st["core"]]
-    left, right = 200, WIDE_W - 22
-    gap = (right - left - sum(widths)) / max(len(widths) - 1, 1)
-    xs = [left + sum(widths[:i]) + gap * i for i in range(len(widths))]
-    for i, (node, x, w) in enumerate(zip(st["core"], xs, widths)):
-        d = 0.6 + i * 0.2
-        c.rect(x, mid - 24, w, 48, "bg", rx=8, stroke="border", anim="pop", delay=d)
-        c.label(x + 14, mid - 3, node["label"], font="GS", size=13, weight=500, fill="ink", anim="fade", delay=d)
-        c.label(x + 14, mid + 14, node["caption"], size=9.5, fill="muted", anim="fade", delay=d + 0.05)
-    # Requests flow gateway -> backend; the corpus is published into the backend.
-    c.line(f"M{xs[0] + widths[0]} {mid} L{xs[1] - 3} {mid}", "faint", arrow=True, delay=0.8)
-    c.line(f"M{xs[2]} {mid} L{xs[1] + widths[1] + 3} {mid}", "faint", arrow=True, delay=1.0)
-    return c.svg(f'{st["name"]}: {st["line"]}')
+    c.text(pad, H - 26, st["cta"], "title", size=14.5, fill="orange", anim="up", delay=0.7)
+    c.icon("arrow-right", pad + measure("GS", st["cta"], 14.5) + 12, H - 38, 15, "orange", delay=0.75)
+
+    # The live product screenshot, framed on the right.
+    shot = screenshot(st["screenshot"], st.get("screenshot_crop", [0, 0, 1, 1]), 340)
+    if shot:
+        uri, (sw, sh) = shot
+        fx, fw = pad + text_w + 26, WIDE_W - (pad + text_w + 26) - pad
+        fh = fw * sh / sw
+        fy = (H - fh) / 2
+        c.add(f'<clipPath id="shot"><rect x="{fx:.1f}" y="{fy:.1f}" width="{fw:.1f}" height="{fh:.1f}" rx="10"/></clipPath>')
+        c.add(f'<g class="up" style="animation-delay:.3s"><image href="{uri}" x="{fx:.1f}" y="{fy:.1f}" '
+              f'width="{fw:.1f}" height="{fh:.1f}" clip-path="url(#shot)" preserveAspectRatio="xMidYMid slice"/>'
+              f'<rect x="{fx:.1f}" y="{fy:.1f}" width="{fw:.1f}" height="{fh:.1f}" rx="10" fill="none" '
+              f'stroke="{c.t["border"]}"/></g>')
+    return c.svg(f'{st["name"]}: {st["tagline"]} {st["audience"]}')
 
 
 def publication_card(theme, i, pub):
-    c = Canvas(WIDE_W, 62, theme)
+    c = Canvas(WIDE_W, 72, theme)
     c.panel()
     d = i * 0.1
-    c.icon("book", 22, 16, 16, "purple", delay=d)
-    c.label(48, 28, fit("GS", pub["title"], 14, WIDE_W - 150), font="GS", size=14, weight=500,
-            fill="ink", anim="up", delay=d + 0.05)
-    c.label(48, 46, pub["venue"], size=10, fill="muted", anim="fade", delay=d + 0.12)
-    c.label(WIDE_W - 22, 38, str(pub["year"]), font="GS", size=18, fill="faint", anchor="end",
-            anim="fade", delay=d + 0.15)
+    c.icon("book", 24, 18, 18, "purple", delay=d)
+    c.text(54, 32, fit("GS", pub["title"], 15.5, WIDE_W - 150), "title", size=15.5, anim="up", delay=d + 0.05)
+    c.text(54, 53, pub["venue"], "meta", fill="muted", anim="fade", delay=d + 0.12)
+    c.text(WIDE_W - 24, 43, str(pub["year"]), "heading", size=20, weight=400, fill="faint",
+           anchor="end", anim="fade", delay=d + 0.15)
     return c.svg(f'{pub["title"]} — {pub["venue"]}, {pub["year"]}')
 
 
 def link_card(theme, i, entry):
     w = (WIDE_W - 8) / 3
-    c = Canvas(round(w), 56, theme)
+    c = Canvas(round(w), 64, theme)
     c.panel()
     d = i * 0.1
-    c.icon(entry["icon"], 18, 20, 16, ["blue", "red", "green"][i % 3], delay=d)
-    c.label(46, 24, entry["label"], size=9, fill="accent", spacing=1.5, upper=True, weight=500,
-            anim="up", delay=d + 0.05)
-    size = min(13.0, (w - 62) / max(measure("GS", entry["value"], 1), 1))
-    c.label(46, 42, entry["value"], font="GS", size=round(size, 2), fill="ink", anim="up", delay=d + 0.1)
+    c.icon(entry["icon"], 20, 22, 20, ["blue", "red", "green"][i % 3], delay=d)
+    c.text(52, 27, entry["label"], "eyebrow", spacing=1, anim="up", delay=d + 0.05)
+    size = min(14.5, (w - 70) / max(measure("GS", entry["value"], 1), 1))
+    c.text(52, 47, entry["value"], "label", size=round(size, 2), anim="up", delay=d + 0.1)
     return c.svg(f'{entry["label"]}: {entry["value"]}')
 
 

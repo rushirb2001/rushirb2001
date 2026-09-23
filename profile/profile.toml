@@ -44,19 +44,24 @@ description = "LangGraph query router for medical retrieval."
 repo = "personal-website"
 description = "The portfolio at rushirbhavsar.dev. Next.js and TypeScript, self-hosted type."
 
+# The product as its users see it. Tagline and features follow sushrutalgs.ai itself.
 [startup]
 title = "Startup"
-caption = "One core, many surfaces"
-role = "Founding engineer, since Nov 2025"
+caption = "Founding engineer, since Nov 2025"
+role = "Designed and built"
 name = "sushrutalgs.ai"
 url = "https://sushrutalgs.ai"
-line = "Medical question-answering platform, built solo end to end."
-surfaces = ["Web", "iOS", "Android"]
-core = [
-  { label = "Edge gateway", caption = "Cloudflare Worker · Hono" },
-  { label = "Retrieval backend", caption = "FastAPI · Neo4j" },
-  { label = "Knowledge graph", caption = "5,941 pages → 71,621 nodes" },
+tagline = "Your surgery textbooks, answering back."
+audience = "For surgical PG residents in India preparing for NEET SS."
+features = [
+  { icon = "book", text = "Cited answers from Bailey & Love, Sabiston and Schwartz" },
+  { icon = "image", text = "Original figures and tables, with page references" },
+  { icon = "stack", text = "Recall, Exam and Explore study modes" },
 ]
+cta = "Try ten questions free"
+# Pulled from the live site on every build, so the card shows the product as it ships.
+screenshot = "https://sushrutalgs.ai/marketing/reel/thread.webp"
+screenshot_crop = [0.0, 0.0, 1.0, 1.0]  # left, top, right, bottom as fractions
 
 [publications]
 title = "Publications"
