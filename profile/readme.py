@@ -106,6 +106,7 @@ def readme(base):
     out.append(block(row([lambda side: picture(base, "stats", HALF, "GitHub stats", align=side, username=login),
                           lambda side: picture(base, "languages", HALF, "Top languages", align=side,
                                                username=login, skip=skip)]),
+                     picture(base, "divider", WIDE, ""),
                      picture(base, "commits", WIDE, "Commit graph", username=login)))
     out.append(projects(base, "open_source"))
     out.append(projects(base, "personal"))

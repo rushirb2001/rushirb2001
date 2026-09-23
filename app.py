@@ -126,6 +126,10 @@ def w_hero(q, theme):
                       line=q.text("line", limit=140), tags=tuple(q.items("tags", sep="|", limit=5)))
 
 
+def w_divider(q, theme):
+    return cards.divider(theme)
+
+
 def w_section(q, theme):
     return cards.section(theme, q.required("title", limit=60), q.text("caption", limit=80))
 
@@ -170,6 +174,7 @@ WIDGETS = {
     "views": (w_views, UNCACHED, ["username"]),
     "hero": (w_hero, STATIC, ["name", "eyebrow", "tags=a|b|c (or line)"]),
     "section": (w_section, STATIC, ["title", "caption"]),
+    "divider": (w_divider, STATIC, []),
     "link": (w_link, STATIC, ["label", "value", "icon", "hue=" + "|".join(HUES)]),
     "publication": (w_publication, STATIC, ["title", "venue", "year"]),
     "product": (w_product, STATIC, ["name", "role", "tagline", "audience", "feature=icon:text (repeat)",

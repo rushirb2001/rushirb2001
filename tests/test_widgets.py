@@ -238,3 +238,12 @@ def test_views_are_never_cached():
 def test_views_respect_the_allowlist(monkeypatch):
     monkeypatch.setenv("ALLOWED_USERS", "someone-else")
     assert client.get("/api/views?username=u").headers.get("X-Widget-Error") == "1"
+
+
+def test_divider_is_a_thin_rule_with_its_own_spacing():
+    r = client.get("/api/divider?theme=dark")
+    assert r.status_code == 200 and "X-Widget-Error" not in r.headers
+    root = ET.fromstring(r.text)
+    assert root.get("height") == "40"
+    rule = [e for e in root.iter() if e.tag.endswith("rect")][-1]
+    assert rule.get("height") == "1" and rule.get("fill") == "url(#rule)"

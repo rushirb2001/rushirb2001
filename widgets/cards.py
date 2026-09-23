@@ -131,6 +131,20 @@ def hero(theme, name, eyebrow="", line="", tags=()):
     return c.svg(f"{name} — {eyebrow}" if eyebrow else name)
 
 
+def divider(theme):
+    """A thin rule that fades out at both ends. The image's own height is the spacing,
+    so renderers that collapse margins (GitHub) still keep the gap."""
+    c = Canvas(WIDE_W, 40, theme)
+    ink = c.color("ink")
+    c.defs.append(f'<linearGradient id="rule" x1="0" x2="1" y1="0" y2="0">'
+                  f'<stop offset="0" stop-color="{ink}" stop-opacity="0"/>'
+                  f'<stop offset=".2" stop-color="{ink}" stop-opacity=".32"/>'
+                  f'<stop offset=".8" stop-color="{ink}" stop-opacity=".32"/>'
+                  f'<stop offset="1" stop-color="{ink}" stop-opacity="0"/></linearGradient>')
+    c.add(f'<rect x="0" y="20" width="{WIDE_W}" height="1" fill="url(#rule)" class="fade" shape-rendering="crispEdges"/>')
+    return c.svg("Divider")
+
+
 def section(theme, title, caption=""):
     c = Canvas(WIDE_W, 50, theme)
     c.text(4, 34, title, "heading", anim="up")
