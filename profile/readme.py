@@ -5,6 +5,7 @@
 """
 
 import argparse
+import hashlib
 import html
 import tomllib
 from pathlib import Path
@@ -12,10 +13,25 @@ from urllib.parse import quote, urlencode
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = tomllib.loads((ROOT / "profile" / "profile.toml").read_text())
-WIDE_W = 806
+WIDE = "100%"  # full-width cards span the column, so their edges line up with the pairs
 # Cards that share a row are sized as a share of the column, so a row never wraps,
 # whether the column is GitHub's 848px, a narrower editor preview, or a phone.
-HALF, THIRD = "49%", "32.5%"
+# 47%, not 50%: GitHub pads left/right-aligned images by 20px, and a pair must still fit.
+HALF = "47%"
+
+
+def widget_version():
+    """A short hash of the widget code and assets. It goes into every image URL, so a
+    design change is a new URL and no cache (GitHub's image proxy, an editor) keeps an old one."""
+    digest = hashlib.sha256()
+    for path in sorted((ROOT / "widgets").rglob("*")):
+        if path.is_file() and "__pycache__" not in path.parts:
+            digest.update(path.relative_to(ROOT).as_posix().encode())
+            digest.update(path.read_bytes())
+    return digest.hexdigest()[:8]
+
+
+VERSION = widget_version()
 
 
 def url(base, widget, theme, params):
@@ -24,76 +40,91 @@ def url(base, widget, theme, params):
         for v in value if isinstance(value, (list, tuple)) else [value]:
             if v not in (None, ""):
                 items.append((key, str(v)))
-    items.append(("theme", theme))
-    return f"{base}/api/{widget}?{urlencode(items, safe=',:|@', quote_via=quote)}"
+    items += [("theme", theme), ("v", VERSION)]
+    # Commas stay encoded: srcset splits on them, which would cut a dark-mode URL in two.
+    return f"{base}/api/{widget}?{urlencode(items, safe=':|@', quote_via=quote)}"
 
 
-def picture(base, widget, width, alt, href=None, **params):
+def picture(base, widget, width, alt, href=None, align=None, **params):
     dark, light = (html.escape(url(base, widget, t, params)) for t in ("dark", "light"))
+    side = f' align="{align}"' if align else ""
     img = (f'<picture><source media="(prefers-color-scheme: dark)" srcset="{dark}" />'
-           f'<img src="{light}" width="{width}" alt="{html.escape(alt)}" /></picture>')
+           f'<img src="{light}" width="{width}"{side} alt="{html.escape(alt)}" /></picture>')
     return f'<a href="{html.escape(href)}">{img}</a>' if href else img
 
 
 def block(*parts):
-    # One line per block: some previews (VS Code's, with breaks on) turn every newline
-    # inside the HTML into a <br>, which splits rows and doubles the gaps between them.
-    return '<p align="center">' + "<br/>".join(parts) + "</p>\n"
+    # One line per block: some previews turn every newline inside HTML into a <br>.
+    return '<p align="center">' + "".join(parts) + "</p>\n"
 
 
-def rows(items, per_row):
-    """Inline images, a space between cards and a line break between rows."""
-    return "<br/>".join(" ".join(items[i:i + per_row]) for i in range(0, len(items), per_row))
+def row(cards):
+    """Two cards on one row. They float (align=left, then right) rather than sit inline,
+    so the row holds even where a stylesheet forces images to display:block (some editor
+    previews do); each pair meets both edges. A clearing break ends the row."""
+    sides = ["left", "right"][:len(cards)] if len(cards) > 1 else [None]
+    return "".join(card(side) for card, side in zip(cards, sides)) + '<br clear="all"/>'
+
+
+def pairs(cards):
+    return "".join(row(cards[i:i + 2]) for i in range(0, len(cards), 2))
 
 
 def projects(base, key):
     s, login = CONFIG[key], CONFIG["login"]
     repos = s["repos"]
-    header = picture(base, "section", WIDE_W, s["title"], title=s["title"],
+    header = picture(base, "section", WIDE, s["title"], title=s["title"],
                      caption=f'{s["caption"]} · {len(repos)} repos')
     layout = s.get("layout", "wide")
-    if layout in ("wide", "cards"):
-        width, per_row = (WIDE_W, 1) if layout == "wide" else (HALF, 2)
-        cards = [picture(base, "repo", width, r["repo"], f'https://github.com/{login}/{r["repo"]}',
-                         username=login, repo=r["repo"], size="wide" if layout == "wide" else None,
-                         status=r.get("status"), description=r.get("description"), install=r.get("install"))
-                 for r in repos]
-        return block(header, rows(cards, per_row))
+
+    def card(r, width, **extra):
+        return lambda side: picture(base, "repo", width, r["repo"], f'https://github.com/{login}/{r["repo"]}',
+                                    align=side, username=login, repo=r["repo"], status=r.get("status"),
+                                    description=r.get("description"), install=r.get("install"), **extra)
+
+    if layout == "wide":
+        return block(header, "".join(card(r, WIDE, size="wide")(None) for r in repos))
+    if layout == "cards":
+        return block(header, pairs([card(r, HALF) for r in repos]))
     params = {
-        "username": login, "repos": ",".join(r["repo"] for r in repos), "layout": s["layout"],
+        "username": login, "repos": ",".join(r["repo"] for r in repos), "layout": layout,
         "status": [f'{r["repo"]}:{r["status"]}' for r in repos if r.get("status")],
         "describe": [f'{r["repo"]}:{r["description"]}' for r in repos if r.get("description")],
         "install": [f'{r["repo"]}:{r["install"]}' for r in repos if r.get("install")],
     }
-    return block(header, picture(base, "repos", WIDE_W, s["title"],
-                                            f"https://github.com/{login}?tab=repositories", **params))
+    return block(header, picture(base, "repos", WIDE, s["title"], f"https://github.com/{login}?tab=repositories",
+                                 **params))
 
 
 def readme(base):
     c, login = CONFIG, CONFIG["login"]
     h, st, pubs, links = c["hero"], c["startup"], c["publications"], c["links"]
     out = ["<!-- Generated by profile/readme.py from profile/profile.toml. Edit that file, not this one. -->\n"]
-    out.append(block(picture(base, "hero", 880, h["name"], name=h["name"], eyebrow=h["eyebrow"],
+    out.append(block(picture(base, "hero", WIDE, h["name"], name=h["name"], eyebrow=h["eyebrow"],
                              tags="|".join(h.get("tags", [])), line=h.get("line"))))
-    out.append(block(rows([picture(base, "stats", HALF, "GitHub stats", username=login),
-                           picture(base, "languages", HALF, "Top languages", username=login,
-                                   skip=",".join(c["languages"]["skip"]))], 2),
-                     picture(base, "commits", WIDE_W, "Commit graph", username=login)))
+    skip = ",".join(c["languages"]["skip"])
+    out.append(block(row([lambda side: picture(base, "stats", HALF, "GitHub stats", align=side, username=login),
+                          lambda side: picture(base, "languages", HALF, "Top languages", align=side,
+                                               username=login, skip=skip)]),
+                     picture(base, "commits", WIDE, "Commit graph", username=login)))
     out.append(projects(base, "open_source"))
     out.append(projects(base, "personal"))
-    out.append(block(picture(base, "section", WIDE_W, st["title"], title=st["title"], caption=st["caption"]),
-                     picture(base, "product", WIDE_W, st["name"], st["url"], name=st["name"], role=st["role"],
+    out.append(block(picture(base, "section", WIDE, st["title"], title=st["title"], caption=st["caption"]),
+                     picture(base, "product", WIDE, st["name"], st["url"], name=st["name"], role=st["role"],
                              tagline=st["tagline"], audience=st["audience"], cta=st["cta"], image=st["screenshot"],
                              feature=[f'{f["icon"]}:{f["text"]}' for f in st["features"]])))
-    out.append(block(picture(base, "section", WIDE_W, pubs["title"], title=pubs["title"],
+    # Full-width cards need no breaks: on GitHub each wraps onto its own line anyway.
+    out.append(block(picture(base, "section", WIDE, pubs["title"], title=pubs["title"],
                              caption=f'{pubs["caption"]} · {len(pubs["items"])} papers'),
-                     rows([picture(base, "publication", WIDE_W, p["title"], p["url"], title=p["title"],
-                                   venue=p["venue"], year=p["year"]) for p in pubs["items"]], 1)))
-    out.append(block(picture(base, "section", WIDE_W, links["title"], title=links["title"],
-                             caption=links["caption"]),
-                     rows([picture(base, "link", THIRD, i["label"], i["url"], label=i["label"], value=i["value"],
-                                   icon=i["icon"], hue=i["hue"]) for i in links["items"]], 3)))
-    out.append(block(picture(base, "views", THIRD, "Profile views", username=login)))
+                     "".join(picture(base, "publication", WIDE, p["title"], p["url"], title=p["title"],
+                                     venue=p["venue"], year=p["year"]) for p in pubs["items"])))
+    # Links and the view counter share one grid of pairs.
+    contacts = [(lambda i: lambda side: picture(base, "link", HALF, i["label"], i["url"], align=side,
+                                                label=i["label"], value=i["value"], icon=i["icon"],
+                                                hue=i["hue"]))(i) for i in links["items"]]
+    contacts.append(lambda side: picture(base, "views", HALF, "Profile views", align=side, username=login))
+    out.append(block(picture(base, "section", WIDE, links["title"], title=links["title"], caption=links["caption"]),
+                     pairs(contacts)))
     return "\n".join(out)
 
 

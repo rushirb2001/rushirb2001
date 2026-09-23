@@ -483,26 +483,24 @@ def publication(theme, title, venue="", year=""):
     return c.svg(f"{title} — {venue}, {year}".strip(" ,—"))
 
 
-LINK_W = round((WIDE_W - 8) / 3)
-
-
 def link(theme, label, value, icon="link-external", hue="blue"):
-    c = Canvas(LINK_W, 64, theme)
+    """A contact link, sized to pair with another card on one row."""
+    c = Canvas(CARD_W, 64, theme)
     c.panel()
-    c.icon(icon, 20, 22, 20, hue)
-    c.text(52, 27, label, "eyebrow", spacing=1, anim="up", delay=0.05)
-    size = min(14.5, (LINK_W - 70) / max(measure("GS", value, 1), 1))
-    c.text(52, 47, value, "label", size=round(max(size, 11), 2), anim="up", delay=0.1)
+    c.icon(icon, 22, 22, 20, hue)
+    c.text(54, 27, label, "eyebrow", spacing=1, anim="up", delay=0.05)
+    size = min(15, (CARD_W - 78) / max(measure("GS", value, 1), 1))
+    c.text(54, 48, value, "label", size=round(max(size, 11), 2), anim="up", delay=0.1)
     return c.svg(f"{label}: {value}")
 
 
 def views(theme, count):
-    """Profile views, in the same card as the links above it."""
-    c = Canvas(LINK_W, 64, theme)
+    """Profile views, in the same card as the links it sits with."""
+    c = Canvas(CARD_W, 64, theme)
     c.panel()
-    c.icon("eye", 20, 22, 20, "purple")
-    c.text(52, 27, "Profile views", "eyebrow", spacing=1, anim="up", delay=0.05)
-    c.text(52, 48, f"{count:,}" if count is not None else "—", "value", size=17, anim="up", delay=0.1)
+    c.icon("eye", 22, 22, 20, "purple")
+    c.text(54, 27, "Profile views", "eyebrow", spacing=1, anim="up", delay=0.05)
+    c.text(54, 48, f"{count:,}" if count is not None else "—", "value", size=17, anim="up", delay=0.1)
     return c.svg(f"{count:,} profile views" if count is not None else "Profile views")
 
 
