@@ -1,10 +1,9 @@
 # The single source for the profile README.
-# build.py renders every image and the README markdown itself from this file plus
-# live GitHub data. Edit here and push; never edit README.md by hand.
+# `python profile/readme.py` turns this file into README.md: every image in it is a
+# link to the widget server, which renders it live. Edit here, never in README.md.
 
 login = "rushirb2001"
-# Where the workflow publishes the rendered images (GitHub Pages; deployments, not commits).
-images = "https://rushirb2001.github.io/rushirb2001"
+service = "https://rushirb2001.vercel.app"
 
 [hero]
 eyebrow = "Founding engineer · sushrutalgs.ai"
@@ -16,21 +15,27 @@ principles = ["One core, many surfaces", "Software should describe itself", "Mea
 # Byte counts for these are dominated by notebook outputs and markup, not code written.
 skip = ["Jupyter Notebook", "HTML", "CSS"]
 
-# Project cards read name, description, language, stars and license live from GitHub.
-# Set `description` only to override a repo's own (empty or stale) description.
+# Project widgets read name, description, language, stars and release live from GitHub.
+# Per repo: `description` overrides a stale one, `install` shows a command, and `status`
+# is auto (from topics or archival), none, or coming-soon | in-progress | beta | alpha | new.
+# `layout` is cards (two per row), carousel (one card that rotates) or list (one compact card).
 [open_source]
 title = "Open source"
 caption = "Tools you can install"
+layout = "cards"
 
 [[open_source.repos]]
 repo = "cohors"
+install = "brew install rushirb2001/tap/cohors"
 
 [[open_source.repos]]
 repo = "principia"
+status = "coming-soon"
 
 [personal]
 title = "Personal projects"
 caption = "Research and side builds"
+layout = "carousel"
 
 [[personal.repos]]
 repo = "thesis-mace-pinn"
@@ -61,9 +66,7 @@ features = [
   { icon = "stack", text = "Recall, Exam and Explore study modes" },
 ]
 cta = "Try ten questions free"
-# Pulled from the live site on every build, so the card shows the product as it ships.
 screenshot = "https://sushrutalgs.ai/marketing/reel/thread.webp"
-screenshot_crop = [0.0, 0.0, 1.0, 1.0]  # left, top, right, bottom as fractions
 
 [publications]
 title = "Publications"
@@ -96,15 +99,18 @@ label = "LinkedIn"
 value = "in/rushir-bhavsar"
 url = "https://www.linkedin.com/in/rushir-bhavsar/"
 icon = "person"
+hue = "blue"
 
 [[links.items]]
 label = "Email"
 value = "rushirbhavsar@gmail.com"
 url = "mailto:rushirbhavsar@gmail.com"
 icon = "mail"
+hue = "red"
 
 [[links.items]]
 label = "Portfolio"
 value = "rushirbhavsar.dev"
 url = "https://rushirbhavsar.dev/"
 icon = "globe"
+hue = "green"
