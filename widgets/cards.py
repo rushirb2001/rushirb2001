@@ -54,8 +54,8 @@ def resolve_status(repo, requested="auto"):
 
 # ---------------------------------------------------------------- shared pieces
 
-def _meta_row(c, repo, x, y, right, *, anim=True):
-    """Language, stars, forks on the left; last update on the right."""
+def _meta_row(c, repo, x, y, right, *, anim=True, license=False):
+    """Language, stars, forks on the left; license (optional) and last update on the right."""
     a = (lambda kind: kind) if anim else (lambda kind: None)
     lang = repo.get("primaryLanguage")
     if lang:
@@ -66,8 +66,11 @@ def _meta_row(c, repo, x, y, right, *, anim=True):
         c.icon(icon, x, y - 12, 14, hue, anim=a("pop"), delay=0.35)
         c.text(x + 20, y, f"{value:,}", "meta", fill="muted", anim=a("fade"), delay=0.35)
         x += 36 + measure("GS", f"{value:,}", 12.5)
-    pushed = datetime.fromisoformat(repo["pushedAt"])
-    c.text(right, y, f"Updated {pushed:%b %Y}", "meta", anchor="end", anim=a("fade"), delay=0.4)
+    pushed = f'Updated {datetime.fromisoformat(repo["pushedAt"]):%b %Y}'
+    spdx = (repo.get("licenseInfo") or {}).get("spdxId")
+    if license and spdx and spdx != "NOASSERTION":
+        pushed = f"{spdx} · {pushed}"
+    c.text(right, y, pushed, "meta", anchor="end", anim=a("fade"), delay=0.4)
 
 
 def _action(c, repo, x, y, width, install, *, anim=True):
@@ -103,17 +106,28 @@ def _badge(c, repo, status, right, y, *, anim=True):
 
 # ---------------------------------------------------------------- profile widgets
 
-def hero(theme, name, eyebrow="", line="", tagline=()):
-    c = Canvas(880, 150, theme)
+TAG_HUES = ["blue", "purple", "green", "amber", "orange"]
+
+
+def hero(theme, name, eyebrow="", line="", tags=()):
+    """Name first. Under it either a few short topic tags or one line, never both."""
+    tags = tuple(tags)[:5]
+    c = Canvas(880, 136 if (tags or line) else 96, theme)
     cx = c.w / 2
     if eyebrow:
         c.text(cx, 22, eyebrow, "eyebrow", size=12.5, spacing=2, anchor="middle", anim="up")
-    c.label(cx, 80, name, font="GS", size=52, fill="ink", anchor="middle", spacing=-1, anim="up", delay=0.12)
-    if line:
-        c.text(cx, 110, fit("GS", line, 16, 860), "body", size=16, anchor="middle", anim="up", delay=0.28)
-    if tagline:
-        c.text(cx, 138, fit("GS", "   ·   ".join(tagline), 13.5, 860), "meta", size=13.5, anchor="middle",
-               anim="fade", delay=0.48)
+    c.label(cx, 78, name, font="GS", size=52, fill="ink", anchor="middle", spacing=-1, anim="up", delay=0.12)
+    if tags:
+        widths = [measure("GS", t, 13.5) + 36 for t in tags]
+        x = cx - (sum(widths) + 10 * (len(tags) - 1)) / 2
+        for i, (tag, w) in enumerate(zip(tags, widths)):
+            d = 0.3 + i * 0.08
+            c.rect(x, 100, w, 28, "none", rx=14, stroke="border", anim="pop", delay=d)
+            c.circle(x + 15, 114, 3.5, TAG_HUES[i % len(TAG_HUES)], anim="pop", delay=d)
+            c.text(x + 25, 119, tag, "label", size=13.5, fill="muted", anim="fade", delay=d)
+            x += w + 10
+    elif line:
+        c.text(cx, 112, fit("GS", line, 16, 860), "body", size=16, anchor="middle", anim="up", delay=0.28)
     return c.svg(f"{name} — {eyebrow}" if eyebrow else name)
 
 
@@ -271,33 +285,43 @@ def repo(theme, repo, *, status="auto", description="", install=""):
     return c.svg(f'{repo["name"]}: {desc}')
 
 
-def _slide(c, repo, *, status, description, install):
-    """One carousel frame, drawn without per-element motion (the frame itself animates)."""
-    right, pad = WIDE_W - 28, 28
-    c.icon("repo", pad, 62, 20, "muted", anim=None)
-    title_w = 560 if not status else 560 - measure("GS", status[0], 11.5) - 30
-    c.label(pad + 30, 79, fit("GS", repo["name"], 22, title_w), font="GS", size=22, weight=500, fill="ink")
-    _badge(c, repo, status, right, 80, anim=False)
+WIDE_H = 198
+
+
+def _wide_body(c, repo, *, status, description, install, anim=True):
+    """A project across the full width: name with its status, description, link row, meta row."""
+    a = (lambda kind: kind) if anim else (lambda kind: None)
+    pad, y = 28, 48
+    c.icon("repo", pad, y - 17, 20, "muted", anim=a("pop"), delay=0.05)
+    name = fit("GS", repo["name"], 22, 440)
+    c.label(pad + 30, y, name, font="GS", size=22, weight=500, fill="ink", anim=a("up"), delay=0.08)
+    after = pad + 30 + measure("GS", name, 22) + 14
+    if status:
+        c.pill(after, y - 17, status[0], status[1], anchor="start", pulse=status[2], delay=0.2)
+    elif repo.get("latestRelease"):
+        c.pill(after, y - 17, repo["latestRelease"]["tagName"], "green", anchor="start", delay=0.2)
     desc = description or repo.get("description") or "No description yet."
     for i, line in enumerate(wrap("GS", desc, 14.5, WIDE_W - 2 * pad, 2)):
-        c.text(pad, 112 + i * 21, line, "body", size=14.5)
-    _action(c, repo, pad, 146, WIDE_W - 2 * pad, install, anim=False)
-    _meta_row(c, repo, pad, 206, right, anim=False)
+        c.text(pad, 82 + i * 21, line, "body", size=14.5, anim=a("up"), delay=0.16 + i * 0.06)
+    _action(c, repo, pad, 120, WIDE_W - 2 * pad, install, anim=anim)
+    _meta_row(c, repo, pad, WIDE_H - 20, WIDE_W - pad, anim=anim, license=True)
 
 
-def carousel(theme, repos, *, title="", statuses=None, descriptions=None,
-             installs=None, interval=4.5):
-    """Circulating card: one project at a time, crossfading on a loop, with position dots.
+def repo_wide(theme, repo, *, status="auto", description="", install=""):
+    """The full-width project card: room for the whole description and install line."""
+    c = Canvas(WIDE_W, WIDE_H, theme)
+    c.panel()
+    status = resolve_status(repo, status)
+    _wide_body(c, repo, status=status, description=description, install=install)
+    return c.svg(f'{repo["name"]}: {description or repo.get("description") or ""}'.rstrip(": "))
 
-    With no title, each frame is labelled with its position instead ("02 / 04"), so a
-    carousel under its own section heading doesn't repeat the heading.
-    """
+
+def carousel(theme, repos, *, statuses=None, descriptions=None, installs=None, interval=4.5):
+    """Circulating card: one project at a time, crossfading on a loop, with position dots."""
     statuses, descriptions, installs = statuses or {}, descriptions or {}, installs or {}
     n = len(repos)
-    c = Canvas(WIDE_W, 228, theme)
+    c = Canvas(WIDE_W, WIDE_H, theme)
     c.panel()
-    if title:
-        c.eyebrow(28, 36, title)
     fade, cycle = 0.6, n * interval
     a, b, e = fade / cycle * 100, (interval - fade) / cycle * 100, interval / cycle * 100
     # Static fallback (reduced motion, PNG): only the first frame shows.
@@ -310,21 +334,20 @@ def carousel(theme, repos, *, title="", statuses=None, descriptions=None,
                      f"{e:.3f}%{{opacity:0}}100%{{opacity:0}}}}"
                      f".slide{{animation:slide {cycle:.2f}s linear infinite both}}"
                      f".on{{animation:on {cycle:.2f}s linear infinite both}}")
-    # Position dots, top right: a faint dot per project, with a pill that lights on its turn.
-    dx = WIDE_W - 28 - (n - 1) * 16 - 18
-    for i in range(n):
-        x = dx + i * 16
-        c.rect(x, 27, 8, 8, "faint", rx=4, opacity=0.45)
-        c.add(f'<rect x="{x - 5:.1f}" y="27" width="18" height="8" rx="4" fill="{c.color("accent")}" '
-              f'class="on s{i}" style="animation-delay:{i * interval:.2f}s"/>')
+    # Position dots, top right on the name line: a faint dot each, lit in turn.
+    if n > 1:
+        dx = WIDE_W - 28 - (n - 1) * 16 - 18
+        for i in range(n):
+            x = dx + i * 16
+            c.rect(x, 27, 8, 8, "faint", rx=4, opacity=0.45)
+            c.add(f'<rect x="{x - 5:.1f}" y="27" width="18" height="8" rx="4" fill="{c.color("accent")}" '
+                  f'class="on s{i}" style="animation-delay:{i * interval:.2f}s"/>')
     for i, r in enumerate(repos):
         c.add(f'<g class="slide s{i}" style="animation-delay:{i * interval:.2f}s">')
-        if not title:
-            c.text(28, 36, f"{i + 1:02d} / {n:02d}", "eyebrow")
-        _slide(c, r, status=resolve_status(r, statuses.get(r["name"], "auto")),
-               description=descriptions.get(r["name"], ""), install=installs.get(r["name"], ""))
+        _wide_body(c, r, status=resolve_status(r, statuses.get(r["name"], "auto")),
+                   description=descriptions.get(r["name"], ""), install=installs.get(r["name"], ""), anim=False)
         c.add("</g>")
-    return c.svg(f"{title or 'Projects'}: " + ", ".join(r["name"] for r in repos))
+    return c.svg("Projects: " + ", ".join(r["name"] for r in repos))
 
 
 def repo_list(theme, repos, *, title="Public projects", statuses=None, descriptions=None):

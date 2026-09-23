@@ -8,8 +8,7 @@ service = "https://rushirb2001.vercel.app"
 [hero]
 eyebrow = "Founding engineer · sushrutalgs.ai"
 name = "Rushir Bhavsar"
-line = "RAG, physics-informed neural networks, distributed ML pipelines. Previously Cadence."
-principles = ["One core, many surfaces", "Software should describe itself", "Measure before you claim"]
+tags = ["RAG", "Physics-informed ML", "Distributed pipelines"]
 
 [languages]
 # Byte counts for these are dominated by notebook outputs and markup, not code written.
@@ -18,11 +17,12 @@ skip = ["Jupyter Notebook", "HTML", "CSS"]
 # Project widgets read name, description, language, stars and release live from GitHub.
 # Per repo: `description` overrides a stale one, `install` shows a command, and `status`
 # is auto (from topics or archival), none, or coming-soon | in-progress | beta | alpha | new.
-# `layout` is cards (two per row), carousel (one card that rotates) or list (one compact card).
+# `layout` is wide (one full-width card each), cards (two per row), carousel (one card that
+# rotates through them) or list (one compact card).
 [open_source]
 title = "Open source"
 caption = "Tools you can install"
-layout = "cards"
+layout = "wide"
 
 [[open_source.repos]]
 repo = "cohors"

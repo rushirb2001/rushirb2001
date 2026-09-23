@@ -96,8 +96,9 @@ def w_commits(q, theme):
 
 def w_repo(q, theme):
     repo = github.repository(q.user(), q.required("repo", limit=100))
-    return cards.repo(theme, repo, status=cards.status_key(q.text("status")),
-                      description=q.text("description", limit=240), install=q.text("install", limit=120))
+    card = cards.repo_wide if q.choice("size", ("card", "wide"), "card") == "wide" else cards.repo
+    return card(theme, repo, status=cards.status_key(q.text("status")),
+                description=q.text("description", limit=240), install=q.text("install", limit=120))
 
 
 def w_repos(q, theme):
@@ -108,16 +109,15 @@ def w_repos(q, theme):
     statuses = {name: "coming-soon" for name in q.items("soon")}
     statuses.update({k: cards.status_key(v) for k, v in q.pairs("status").items()})
     options = {"statuses": statuses, "descriptions": q.pairs("describe", limit=240)}
-    title = q.text("title", limit=60)
     if q.choice("layout", ("carousel", "list"), "carousel") == "list":
-        return cards.repo_list(theme, repos, title=title or "Public projects", **options)
-    return cards.carousel(theme, repos, title=title, installs=q.pairs("install", limit=120),
+        return cards.repo_list(theme, repos, title=q.text("title", "Public projects", limit=60), **options)
+    return cards.carousel(theme, repos, installs=q.pairs("install", limit=120),
                           interval=q.number("interval", 4.5, 2, 12), **options)
 
 
 def w_hero(q, theme):
     return cards.hero(theme, q.required("name", limit=60), eyebrow=q.text("eyebrow", limit=80),
-                      line=q.text("line", limit=140), tagline=tuple(q.items("tagline", sep="|", limit=5)))
+                      line=q.text("line", limit=140), tags=tuple(q.items("tags", sep="|", limit=5)))
 
 
 def w_section(q, theme):
@@ -156,12 +156,12 @@ WIDGETS = {
     "stats": (w_stats, LIVE, ["username"]),
     "languages": (w_languages, LIVE, ["username", "skip=Lang,Lang", "count=1..6"]),
     "commits": (w_commits, LIVE, ["username"]),
-    "repo": (w_repo, LIVE, ["username", "repo", "status=auto|none|" + "|".join(cards.STATUSES),
+    "repo": (w_repo, LIVE, ["username", "repo", "size=card|wide", "status=auto|none|" + "|".join(cards.STATUSES),
                             "description", "install"]),
     "repos": (w_repos, LIVE, ["username", "repos=a,b,c (default: top by stars)", "count=1..12",
-                              "layout=carousel|list", "title", "soon=a,b", "status=repo:status",
+                              "layout=carousel|list", "title (list only)", "soon=a,b", "status=repo:status",
                               "describe=repo:text", "install=repo:command", "interval=2..12"]),
-    "hero": (w_hero, STATIC, ["name", "eyebrow", "line", "tagline=a|b|c"]),
+    "hero": (w_hero, STATIC, ["name", "eyebrow", "tags=a|b|c (or line)"]),
     "section": (w_section, STATIC, ["title", "caption"]),
     "link": (w_link, STATIC, ["label", "value", "icon", "hue=" + "|".join(HUES)]),
     "publication": (w_publication, STATIC, ["title", "venue", "year"]),
